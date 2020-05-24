@@ -16,8 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'solo',
     'import_export',
+    'webpack_loader',
     'django_cleanup.apps.CleanupConfig',
     'easy_thumbnails',
+    'sitetree',
     'core.apps.CoreConfig',
     'store.apps.StoreConfig',
 ]
@@ -76,6 +78,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+DATETIME_FORMAT = "d.m.Y H:M"
+DATE_FORMAT = "d.m.Y"
+SHORT_DATE_FORMAT = "d.m.Y"
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

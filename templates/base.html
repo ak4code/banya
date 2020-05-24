@@ -1,0 +1,62 @@
+{% load webpack_loader %}
+{% load static %}
+{% load sitetree %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <link rel="icon" type="image/ico" href="{% static 'core/favicon.ico' %}">
+    {% get_files 'app' 'js' as app_js_files %}
+    {% get_files 'app' 'css' as app_css_files %}
+    {% for js_file in app_js_files %}
+        <link href="{{ js_file.url }}" rel="preload" as="script">
+    {% endfor %}
+    {% get_files 'chunk-vendors' 'js' as chunk_js_files %}
+    {% for js_file in chunk_js_files %}
+        <link href="{{ js_file.url }}" rel="preload" as="script">
+    {% endfor %}
+    {% for css_file in app_css_files %}
+        <link href="{{ css_file.url }}" rel="preload" as="style">
+    {% endfor %}
+    {% render_bundle 'app' 'css' %}
+</head>
+<body>
+<div id="b-app">
+    <header class="b-header" uk-sticky>
+        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+            <div class="uk-navbar-left uk-hidden@m">
+                <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
+                    <li>
+                        <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
+                            <img src="{% static 'core/logo.webp' %}" alt="Банщик">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="uk-navbar-left uk-visible@m">
+                <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
+                    <li>
+                        <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
+                            <img src="{% static 'core/logo.webp' %}" alt="Банщик">
+                        </a>
+                    </li>
+                    {% sitetree_menu from "main_menu" include "trunk" template "core/nav/mainmenu.html" %}
+                </ul>
+            </div>
+            <div class="uk-navbar-right"></div>
+        </nav>
+    </header>
+    {% block layout %}
+        {% block content %}{% endblock %}
+    {% endblock %}
+</div>
+{% render_bundle 'chunk-vendors' 'js' %}
+{% render_bundle 'app' 'js' %}
+</body>
+</html>

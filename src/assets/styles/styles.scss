@@ -1,0 +1,41 @@
+@import "theme/variables";
+@import "~uikit/src/scss/variables.scss";
+@import "~uikit/src/scss/mixins.scss";
+// 3. Your custom mixin overwrites.
+//@import "theme/accordion-mixins.scss";
+@import "~uikit/src/scss/uikit.scss";
+
+#b-app {
+  height: 100%;
+  min-height: 100vh;
+  background: $app-background;
+}
+
+.b-header {
+  background: white;
+  z-index: 980;
+}
+
+.b-sidebar {
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  background: white;
+  box-sizing: border-box;
+  width: 300px;
+  height: 100%;
+  overflow: auto;
+  padding: 25px 25px 40px 25px;
+  border-right: 1px solid #d2d2d2;
+}
+
+.b-content {
+  box-sizing: border-box;
+  height: 100%;
+  padding-left: 300px;
+  padding-top: 20px;
+  overflow: auto;
+  @media (max-width: 959px) {
+    padding-left: inherit;
+  }
+}

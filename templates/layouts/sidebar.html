@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block layout %}
+    <aside class="b-sidebar uk-visible@m">
+        {% block sidebar %}{% endblock %}
+    </aside>
+    <main class="b-content">
+        {% block content %}{% endblock %}
+    </main>
+{% endblock %}
