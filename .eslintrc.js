@@ -19,6 +19,15 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   },
 
+  overrides: [
+    {
+      files: ['*.vue'],
+      rules: {
+        indent: 'off',
+      }
+    }
+  ],
+
   globals: {
     UIkit: true
   }

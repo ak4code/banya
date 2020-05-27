@@ -20,8 +20,10 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'easy_thumbnails',
     'sitetree',
+    'rest_framework',
     'core.apps.CoreConfig',
     'store.apps.StoreConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -94,4 +96,12 @@ THUMBNAIL_ALIASES = {
         'small': {'size': (100, 100), 'quality': 80, 'crop': True},
         'medium': {'size': (300, 300), 'quality': 80, 'crop': True},
     },
+}
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }

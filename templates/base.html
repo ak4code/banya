@@ -1,6 +1,7 @@
 {% load webpack_loader %}
 {% load static %}
 {% load sitetree %}
+{% load solo_tags %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% get_solo 'core.Config' as site_config %}{{ site_config.name }}{% endblock %}</title>
     <meta name="description" content="{% block description %}{% endblock %}">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
     <link rel="icon" type="image/ico" href="{% static 'core/favicon.ico' %}">
@@ -29,28 +30,30 @@
 <body>
 <div id="b-app">
     <header class="b-header" uk-sticky>
-        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-            <div class="uk-navbar-left uk-hidden@m">
-                <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
-                    <li>
-                        <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
-                            <img src="{% static 'core/logo.webp' %}" alt="Банщик">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="uk-navbar-left uk-visible@m">
-                <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
-                    <li>
-                        <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
-                            <img src="{% static 'core/logo.webp' %}" alt="Банщик">
-                        </a>
-                    </li>
-                    {% sitetree_menu from "main_menu" include "trunk" template "core/nav/mainmenu.html" %}
-                </ul>
-            </div>
-            <div class="uk-navbar-right"></div>
-        </nav>
+        <div class="uk-container">
+            <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+                <div class="uk-navbar-left uk-hidden@m">
+                    <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
+                        <li>
+                            <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
+                                <img src="{% static 'core/logo.webp' %}" alt="Банщик">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="uk-navbar-left uk-visible@m">
+                    <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
+                        <li>
+                            <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
+                                <img src="{% static 'core/logo.webp' %}" alt="Банщик">
+                            </a>
+                        </li>
+                        {% sitetree_menu from "main_menu" include "trunk" template "core/nav/mainmenu.html" %}
+                    </ul>
+                </div>
+                <div class="uk-navbar-right"></div>
+            </nav>
+        </div>
     </header>
     {% block layout %}
         {% block content %}{% endblock %}

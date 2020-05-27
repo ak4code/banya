@@ -13,7 +13,7 @@ class CategoryAdmin(admin.ModelAdmin):
         }),
         ('SEO Настройки', {
             'classes': ('collapse',),
-            'fields': ('seo_title', 'seo_description'),
+            'fields': ('slug', 'seo_title', 'seo_description'),
         }),
     )
 
@@ -47,7 +47,7 @@ class ProductResource(resources.ModelResource):
     features = fields.Field(
         column_name='Характеристики',
         attribute='features',
-        widget=widgets.Widget)
+        widget=widgets.Widget())
 
     class Meta:
         model = Product

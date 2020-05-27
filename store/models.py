@@ -1,16 +1,27 @@
 from django.db import models
 from django.templatetags.static import static
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from easy_thumbnails.files import get_thumbnailer
 
 from core.models import SEOBase
+from uuslug import uuslug
 
 
 class Category(SEOBase):
     name = models.CharField(max_length=255, default='Раздел', verbose_name='Название')
+    slug = models.CharField(max_length=255, blank=True, null=True, verbose_name='ЧПУ ссылка', unique=True,
+                            db_index=True)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('store:category', args=[str(self.slug)])
+
+    def save(self, *args, **kwargs):
+        self.slug = uuslug(self.name, instance=self)
+        super(Category, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Категория'
@@ -30,6 +41,12 @@ class Product(SEOBase):
 
     def __str__(self):
         return self.name
+
+    def get_medium_img(self):
+        if self.image:
+            return get_thumbnailer(self.image)['medium'].url
+        else:
+            return static('store/no-image.webp')
 
     def image_tag(self):
         if self.image:
