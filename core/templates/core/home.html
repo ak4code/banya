@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load solo_tags %}
+{% load sitetree %}
 
 {% block title %}
     {% get_solo 'core.Config' as site_config %}
@@ -7,5 +8,86 @@
 {% endblock %}
 
 {% block content %}
-    <div class="uk-container uk-container-large"></div>
+    <div class="uk-container">
+        <div class="uk-flex uk-flex-wrap uk-child-width-1-2@m uk-margin-top uk-grid-small">
+            <div class="uk-margin-bottom">
+                <div class="uk-card uk-card-body uk-card-small uk-card-primary" style="min-height: 350px"></div>
+            </div>
+            <div>
+                <div class="uk-flex uk-flex-wrap uk-child-width-1-2 uk-grid-small">
+                    <div class="uk-margin-bottom">
+                        <div class="uk-card uk-card-body uk-card-small uk-card-secondary"
+                             style="min-height: 164px"></div>
+                    </div>
+                    <div class="uk-margin-bottom">
+                        <div class="uk-card uk-card-body uk-card-small uk-card-secondary"
+                             style="min-height: 164px"></div>
+                    </div>
+                    <div class="uk-margin-bottom">
+                        <div class="uk-card uk-card-body uk-card-small uk-card-secondary"
+                             style="min-height: 164px"></div>
+                    </div>
+                    <div class="uk-margin-bottom">
+                        <div class="uk-card uk-card-body uk-card-small uk-card-secondary"
+                             style="min-height: 164px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="b-section__main uk-padding-small uk-margin-bottom">
+        <div class="uk-container">
+            <div class="uk-card uk-card-body uk-card-small">
+                <h1 class="uk-h2 uk-text-bold">{% sitetree_page_hint from "main_menu" %}</h1>
+                {% filter linebreaksbr %}
+                    {% sitetree_page_description from "main_menu" %}
+                {% endfilter %}
+            </div>
+        </div>
+    </section>
+    <section class="b-section__works uk-padding-small uk-margin-bottom">
+        <div class="uk-container">
+            <h3 class="uk-text-bold">Наши работы</h3>
+            <div class="uk-flex uk-flex-wrap uk-child-width-1-5@m uk-grid-small">
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="b-section__products uk-padding-small uk-margin-bottom">
+        <div class="uk-container">
+            <h3 class="uk-text-bold">Актуальные предложения</h3>
+            <div class="uk-flex uk-flex-wrap uk-child-width-1-5@m uk-grid-small">
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+                <div class="uk-margin-bottom">
+                    <div style="min-height: 220px; background: #aaa"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="b-footer"></footer>
 {% endblock %}

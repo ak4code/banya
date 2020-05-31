@@ -13,6 +13,9 @@ class StoreIndexView(ListView):
         context['title'] = 'Каталог'
         return context
 
+    def get_queryset(self):
+        return Product.objects.select_related('category').all()
+
 
 class StoreCategoryView(DetailView):
     model = Category
@@ -31,3 +34,14 @@ class StoreCategoryView(DetailView):
         page = self.request.GET.get('page')
         products = paginator.get_page(page)
         return products
+
+    def get_queryset(self):
+        return Category.objects.prefetch_related('products').all()
+
+
+class StoreProductDetailView(DetailView):
+    model = Product
+    template_name = 'store/product.html'
+
+    def get_queryset(self):
+        return Product.objects.select_related('category').filter(category__slug=self.kwargs['category'])

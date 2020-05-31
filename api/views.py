@@ -4,5 +4,5 @@ from .serializers import CategorySerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.prefetch_related('products').all()
     serializer_class = CategorySerializer

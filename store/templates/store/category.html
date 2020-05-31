@@ -13,7 +13,7 @@
             {% for product in product_list %}
                 <div class="uk-margin-bottom">
                     <div class="b-product__card uk-border-rounded">
-                        <a href="">
+                        <a href="{% url 'store:product' product.category.slug product.pk %}">
                             <div class="b-product__image">
                                 <img src="{{ product.get_medium_img }}" alt="">
                             </div>
@@ -32,5 +32,36 @@
                 </div>
             {% endfor %}
         </div>
+        {% if page_obj.paginator.num_pages > 1 %}
+            <div class="b-pagination">
+                <div class="uk-card uk-card-small uk-card-body uk-card-default uk-margin uk-border-rounded uk-box-shadow-medium">
+                    <ul class="uk-pagination uk-flex-center" uk-margin>
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}"><span uk-pagination-previous></span></a>
+                            </li>
+                            <li><a href="?page=1">1</a></li>
+                        {% endif %}
+                        {% if page_obj.has_previous and page_obj.previous_page_number != 1 %}
+                            <li class="uk-disabled"><span>...</span></li>
+                            <li>
+                                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                            </li>
+                        {% endif %}
+                        <li class="uk-active"><span>{{ page_obj.number }}</span></li>
+                        {% if page_obj.has_next and page_obj.next_page_number != page_obj.paginator.num_pages %}
+                            <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                            <li class="uk-disabled"><span>...</span></li>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                            <li>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                            </li>
+                            <li><a href="?page={{ page_obj.next_page_number }}"><span uk-pagination-next></span></a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

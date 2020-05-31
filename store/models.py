@@ -42,6 +42,12 @@ class Product(SEOBase):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('store:product', (), {
+            'category': self.category.slug,
+            'pk': self.pk,
+        })
+
     def get_medium_img(self):
         if self.image:
             return get_thumbnailer(self.image)['medium'].url
@@ -57,5 +63,6 @@ class Product(SEOBase):
     image_tag.short_description = 'Изображение'
 
     class Meta:
+        ordering = ['create_at']
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'

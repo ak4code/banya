@@ -17,13 +17,13 @@ INSTALLED_APPS = [
     'solo',
     'import_export',
     'webpack_loader',
-    'django_cleanup.apps.CleanupConfig',
+    'django_cleanup',
     'easy_thumbnails',
     'sitetree',
     'rest_framework',
     'core.apps.CoreConfig',
     'store.apps.StoreConfig',
-    'api.apps.ApiConfig',
+    'api',
 ]
 
 MIDDLEWARE = [

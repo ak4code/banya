@@ -1,0 +1,13 @@
+{% extends 'layouts/sidebar.html' %}
+
+{% block title %}{{ product.seo_title }} | {{ block.super }}{% endblock %}
+{% block description %}{{ product.seo_description }}{% endblock %}
+
+{% block sidebar %}
+    <store-menu id="{{ product.category.id }}"></store-menu>
+{% endblock %}
+{% block content %}
+    <div class="uk-margin-top">
+        <h1 class="uk-h2 uk-text-bold">{{ product.name }}</h1>
+    </div>
+{% endblock %}

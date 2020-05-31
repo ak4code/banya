@@ -118,3 +118,20 @@
     min-height: 54px;
   }
 }
+
+.b-section__main {
+  background-color: #491b03;
+  background: linear-gradient(#7c482b, #491b03);
+  color: wheat;
+
+  h1 {
+    color: wheat;
+  }
+}
+
+.b-footer {
+  min-height: 250px;
+  border-top: 3px solid #8a2c05;
+  background-color: #15151b;
+  background: linear-gradient(#26282b, #15151b);
+}

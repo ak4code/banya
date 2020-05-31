@@ -1,6 +1,6 @@
 <template>
   <div class="store-menu uk-margin-top">
-    <div class="uk-card uk-card-default uk-border-rounded uk-overflow-hidden">
+    <div class="uk-card uk-card-default uk-border-rounded uk-overflow-hidden uk-box-shadow-small">
       <ul class="uk-nav b-storemenu">
         <li v-for="category in categories" v-bind:class="{ 'active': id == category.id }" :key="category.id">
           <a :href="category.url" class="uk-flex uk-flex-between uk-flex-middle">
