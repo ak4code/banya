@@ -1,6 +1,6 @@
 {% extends 'layouts/sidebar.html' %}
 
-{% block title %}{{ product.seo_title }} | {{ block.super }}{% endblock %}
+{% block title %}{{ product.get_title }} | {{ block.super }}{% endblock %}
 {% block description %}{{ product.seo_description }}{% endblock %}
 
 {% block sidebar %}

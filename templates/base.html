@@ -51,13 +51,22 @@
                         {% sitetree_menu from "main_menu" include "trunk,this-children" template "core/nav/menu.html" %}
                     </ul>
                 </div>
-                <div class="uk-navbar-right"></div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
+                        <li style="border-right: 1px solid">
+                            <a href="{% url 'core:home' %}">Корзина</a>
+                        </li>
+                        <li><a href="#">+7 918 123-23-23</a></li>
+                    </ul>
+                </div>
             </nav>
         </div>
     </header>
-    {% block layout %}
-        {% block content %}{% endblock %}
-    {% endblock %}
+    <section class="b-layout">
+        {% block layout %}
+            {% block content %}{% endblock %}
+        {% endblock %}
+    </section>
     <footer class="b-footer"></footer>
 </div>
 {% render_bundle 'chunk-vendors' 'js' %}

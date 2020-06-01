@@ -2,10 +2,11 @@ from django.contrib import admin
 from .models import Category, Product
 from import_export import resources, fields, widgets
 from import_export.admin import ImportExportActionModelAdmin
+from adminsortable.admin import SortableAdmin
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(SortableAdmin):
     search_fields = ('name',)
     fieldsets = (
         (None, {
@@ -65,10 +66,11 @@ class ProductAdmin(ImportExportActionModelAdmin):
     readonly_fields = ['image_tag']
     fieldsets = (
         (None, {
-            'fields': ('name', 'category', 'description', 'price', 'in_stock', 'image_tag', 'image', 'features')
+            'fields': ('name', 'category', 'description', 'price', 'in_stock', 'unit', 'quantity', 'image_tag', 'image',
+                       'features')
         }),
         ('SEO Настройки', {
-            'classes': ('collapse',),
+            'classes': ('wide', 'extrapretty',),
             'fields': ('seo_title', 'seo_description'),
         }),
     )

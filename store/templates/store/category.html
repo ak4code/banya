@@ -1,6 +1,6 @@
 {% extends 'layouts/sidebar.html' %}
 
-{% block title %}{{ category.seo_title }} | {{ block.super }}{% endblock %}
+{% block title %}{{ category.get_title }} | {{ block.super }}{% endblock %}
 {% block description %}{{ category.seo_description }}{% endblock %}
 
 {% block sidebar %}
@@ -68,7 +68,7 @@
             {% endif %}
         {% else %}
             <div class="uk-flex uk-flex-center uk-flex-middle">
-                <div class="uk-width-1-2">
+                <div class="uk-width-1-1 uk-width-1-2@m">
                     <div class="uk-card uk-card-body uk-border-rounded uk-card-default uk-text-center uk-text-lead">
                         Нет товаров в данной категории!
                     </div>

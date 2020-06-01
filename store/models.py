@@ -3,18 +3,22 @@ from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from easy_thumbnails.files import get_thumbnailer
-
+from adminsortable.models import SortableMixin
 from core.models import SEOBase
 from uuslug import uuslug
 
 
-class Category(SEOBase):
+class Category(SEOBase, SortableMixin):
     name = models.CharField(max_length=255, default='Раздел', verbose_name='Название')
     slug = models.CharField(max_length=255, blank=True, null=True, verbose_name='ЧПУ ссылка', unique=True,
                             db_index=True)
+    position = models.PositiveIntegerField(default=0, editable=False, db_index=True, verbose_name='Порядок')
 
     def __str__(self):
         return self.name
+
+    def get_title(self):
+        return self.seo_title or self.name
 
     def get_absolute_url(self):
         return reverse('store:category', args=[str(self.slug)])
@@ -24,6 +28,7 @@ class Category(SEOBase):
         super(Category, self).save(*args, **kwargs)
 
     class Meta:
+        ordering = ['position']
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
@@ -35,12 +40,17 @@ class Product(SEOBase):
     category = models.ForeignKey('Category', related_name='products', on_delete=models.CASCADE,
                                  verbose_name='Категория')
     price = models.DecimalField(decimal_places=2, max_digits=20, default=1, verbose_name='Цена')
+    unit = models.CharField(default='шт.', max_length=100, verbose_name='Единица измерения')
+    quantity = models.PositiveIntegerField(default=1, verbose_name='Количество на складе')
     features = models.TextField(blank=True, null=True, verbose_name='Характеристики')
     in_stock = models.BooleanField(default=True, help_text='При снятой отметки будет отображатся "Под заказ"',
                                    verbose_name='В наличии')
 
     def __str__(self):
         return self.name
+
+    def get_title(self):
+        return self.seo_title or self.name
 
     def get_absolute_url(self):
         return reverse('store:product', (), {

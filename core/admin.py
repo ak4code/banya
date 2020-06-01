@@ -6,11 +6,12 @@ from .models import Config
 @admin.register(Config)
 class ConfigAdmin(SingletonModelAdmin):
     fieldsets = (
-        (None, {
+        ('Основные', {
+            'classes': ('wide', 'extrapretty'),
             'fields': ('name', 'logo')
         }),
         ('SEO Настройки', {
-            'classes': ('collapse',),
+            'classes': ('wide', 'extrapretty'),
             'fields': ('seo_title', 'seo_description'),
         }),
     )

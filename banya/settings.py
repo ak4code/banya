@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'easy_thumbnails',
     'sitetree',
+    'adminsortable',
     'rest_framework',
     'core.apps.CoreConfig',
     'store.apps.StoreConfig',
