@@ -13,6 +13,7 @@ class Category(SEOBase, SortableMixin):
     slug = models.CharField(max_length=255, blank=True, null=True, verbose_name='ЧПУ ссылка', unique=True,
                             db_index=True)
     position = models.PositiveIntegerField(default=0, editable=False, db_index=True, verbose_name='Порядок')
+    image = models.ImageField(upload_to='store/category', blank=True, null=True, verbose_name='Загрузка изображения')
 
     def __str__(self):
         return self.name
@@ -22,6 +23,20 @@ class Category(SEOBase, SortableMixin):
 
     def get_absolute_url(self):
         return reverse('store:category', args=[str(self.slug)])
+
+    def get_medium_img(self):
+        if self.image:
+            return get_thumbnailer(self.image)['medium'].url
+        else:
+            return static('store/no-image.webp')
+
+    def get_small_img(self):
+        if self.image:
+            return get_thumbnailer(self.image)['small'].url
+        else:
+            return static('store/no-image.webp')
+
+    get_small_img.short_description = 'Миниатюра'
 
     def save(self, *args, **kwargs):
         self.slug = uuslug(self.name, instance=self)
@@ -53,7 +68,7 @@ class Product(SEOBase):
         return self.seo_title or self.name
 
     def get_absolute_url(self):
-        return reverse('store:product', (), {
+        return reverse('store:product', kwargs={
             'category': self.category.slug,
             'pk': self.pk,
         })
@@ -64,13 +79,19 @@ class Product(SEOBase):
         else:
             return static('store/no-image.webp')
 
-    def image_tag(self):
+    def get_small_img(self):
         if self.image:
-            return mark_safe('<img src="%s" width="50" height="50" />' % (get_thumbnailer(self.image)['small'].url))
+            return get_thumbnailer(self.image)['small'].url
         else:
-            return mark_safe('<img src="%s" width="50" height="50" />' % (static('store/no-image.webp')))
+            return static('store/no-image.webp')
 
-    image_tag.short_description = 'Изображение'
+    def save(self, *args, **kwargs):
+        if not self.seo_title:
+            self.seo_title = self.name
+        if not self.seo_description:
+            self.seo_description = self.name
+
+        super(Product, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['create_at']

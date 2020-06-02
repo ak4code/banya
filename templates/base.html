@@ -36,7 +36,7 @@
                     <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
                         <li>
                             <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
-                                <img src="{% static 'core/logo.webp' %}" alt="Банщик">
+                                <img src="{% static 'core/logo.webp' %}" alt="Банщик" style="height: 40px">
                             </a>
                         </li>
                     </ul>
@@ -45,19 +45,20 @@
                     <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
                         <li>
                             <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
-                                <img src="{% static 'core/logo.webp' %}" alt="Банщик">
+                                <img src="{% static 'core/logo.webp' %}" alt="Банщик" style="height: 40px">
                             </a>
                         </li>
                         {% sitetree_menu from "main_menu" include "trunk,this-children" template "core/nav/menu.html" %}
                     </ul>
                 </div>
                 <div class="uk-navbar-right">
-                    <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
+                    <ul class="uk-navbar-nav uk-visible@m uk-text-uppercase uk-text-bold">
                         <li style="border-right: 1px solid">
                             <a href="{% url 'core:home' %}">Корзина</a>
                         </li>
                         <li><a href="#">+7 918 123-23-23</a></li>
                     </ul>
+                    <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon href="#"></a>
                 </div>
             </nav>
         </div>

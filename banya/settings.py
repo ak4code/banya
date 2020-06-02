@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'sitetree',
     'adminsortable',
     'rest_framework',
+    'django_filters',
     'core.apps.CoreConfig',
     'store.apps.StoreConfig',
     'api',

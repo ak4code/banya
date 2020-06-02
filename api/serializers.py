@@ -1,17 +1,24 @@
 from rest_framework import serializers
-from store.models import Category
+from store.models import Category, Product
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    url = serializers.SerializerMethodField(read_only=True)
+    url = serializers.CharField(read_only=True, source='get_absolute_url')
     counts = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Category
         fields = '__all__'
 
-    def get_url(self, obj):
-        return obj.get_absolute_url()
-
     def get_counts(self, obj):
         return obj.products.count()
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    url = serializers.CharField(read_only=True, source='get_absolute_url')
+    small_img = serializers.CharField(read_only=True, source='get_small_img')
+    medium_img = serializers.CharField(read_only=True, source='get_medium_img')
+
+    class Meta:
+        model = Product
+        fields = '__all__'
