@@ -24,3 +24,24 @@ class Config(SingletonModel, SEOBase):
 
     class Meta:
         verbose_name = "Настройки"
+
+
+class Page(SEOBase):
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
+    content = models.TextField(blank=True, null=True, verbose_name='Контент')
+
+    def get_title(self):
+        return self.seo_title or self.title
+
+    def save(self, *args, **kwargs):
+        if not self.seo_title:
+            self.seo_title = self.title
+        if not self.seo_description:
+            self.seo_description = self.title
+
+        super(Page, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['create_at']
+        verbose_name = 'Страница'
+        verbose_name_plural = 'Страницы'
