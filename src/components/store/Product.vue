@@ -14,14 +14,21 @@
 
             </div>
         </a>
-        <button class="uk-button uk-button-primary">В корзину</button>
+        <button class="uk-button uk-button-primary" v-on:click.prevent="addItem(product)">В корзину</button>
     </div>
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
+
     export default {
         name: "product",
-        props: ['product']
+        props: ['product'],
+        methods: {
+            ...mapActions({
+                addItem: 'cart/addItem',
+            })
+        }
     }
 </script>
 

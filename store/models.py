@@ -1,7 +1,6 @@
 from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
-from django.utils.safestring import mark_safe
 from easy_thumbnails.files import get_thumbnailer
 from adminsortable.models import SortableMixin
 from core.models import SEOBase
