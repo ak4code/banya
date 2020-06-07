@@ -2,6 +2,8 @@ from .settings import *
 
 DEBUG = False
 
+ALLOWED_HOSTS = ['37.46.129.209', 'banschik.temruk.biz', '.temruk.biz']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
