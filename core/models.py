@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.html import format_html
 from easy_thumbnails.files import get_thumbnailer
 from solo.models import SingletonModel
+from tinymce import HTMLField
 
 
 class SEOBase(models.Model):
@@ -21,6 +22,11 @@ class SEOBase(models.Model):
 class Config(SingletonModel, SEOBase):
     name = models.CharField(max_length=255, default='Магазин', verbose_name='Название')
     logo = models.FileField(upload_to='site/logo', blank=True, null=True, verbose_name='Лого')
+    phone = models.CharField(max_length=255, blank=True, null=True, verbose_name='Телефон')
+    email = models.EmailField(blank=True, null=True, verbose_name='Email')
+    address = models.TextField(blank=True, null=True, verbose_name='Адрес')
+    title = models.CharField(max_length=255, default='Добро пожаловать', verbose_name='Заголовок')
+    content = HTMLField(blank=True, null=True, verbose_name='Контент')
     gallery = models.OneToOneField('Gallery', blank=True, null=True, related_name='gallery', on_delete=models.CASCADE,
                                    verbose_name='Галлерея')
     page = models.OneToOneField('Page', blank=True, null=True, related_name='page', on_delete=models.CASCADE,
@@ -87,3 +93,20 @@ class Photo(models.Model):
     class Meta:
         verbose_name = 'Фото'
         verbose_name_plural = 'Фото'
+
+
+class Block(models.Model):
+    AREA_CHOICES = (
+        (None, 'Выберите область'),
+        ('footer', 'Подвал'),
+    )
+    area = models.CharField(max_length=255, blank=True, choices=AREA_CHOICES, null=True, verbose_name='Область')
+    title = models.CharField(max_length=255, default='Добро пожаловать', verbose_name='Заголовок')
+    content = HTMLField(blank=True, null=True, verbose_name='Контент')
+
+    def __str__(self):
+        return f'Блок #{self.title}'
+
+    class Meta:
+        verbose_name = 'Блок'
+        verbose_name_plural = 'Блоки'

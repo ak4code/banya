@@ -7,9 +7,25 @@
 {% block sidebar %}
     <store-menu></store-menu>
 {% endblock %}
+
 {% block content %}
     <div class="uk-margin-top">
         <h1 class="b-page__title uk-h2 uk-text-bold">{% sitetree_page_title from "main_menu" %}</h1>
         <product-list></product-list>
+    </div>
+    <div id="b-offcanvas__catalog" uk-offcanvas="flip: true; overlay: true; mode: push">
+        <div class="uk-offcanvas-bar">
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+            <h3>Каталог</h3>
+            <store-menu></store-menu>
+        </div>
+    </div>
+    <div class="uk-flex uk-flex-wrap uk-padding-small uk-flex-middle uk-flex-between uk-card-default uk-hidden@m uk-position-fixed uk-position-bottom">
+        <div><h4 class="b-page__title uk-margin-remove uk-text-bold">{% sitetree_page_title from "main_menu" %}</h4></div>
+        <div>
+            <a href="#b-offcanvas__catalog" uk-toggle class="b-offcanvas__button">
+                <span uk-icon="icon: grid"></span>
+            </a>
+        </div>
     </div>
 {% endblock %}

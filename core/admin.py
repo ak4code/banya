@@ -8,7 +8,11 @@ class ConfigAdmin(SingletonModelAdmin):
     fieldsets = (
         ('Основные', {
             'classes': ('wide', 'extrapretty'),
-            'fields': ('name', 'logo')
+            'fields': ('name', 'logo', 'phone', 'email', 'address')
+        }),
+        ('Блок приветствия', {
+            'classes': ('wide', 'extrapretty'),
+            'fields': ('title', 'content')
         }),
         ('Контент', {
             'classes': ('wide', 'extrapretty'),
@@ -33,7 +37,5 @@ class GalleryAdmin(admin.ModelAdmin):
     inlines = (PhotoInlines,)
 
 
-config = Config.get_solo()
-
-admin.site.site_header = config.name
-admin.site.site_title = config.name
+admin.site.site_header = "Банщик"
+admin.site.site_title = "Банщик"

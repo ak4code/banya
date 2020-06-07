@@ -26,8 +26,8 @@
   bottom: 0;
   box-sizing: border-box;
   width: 300px;
-  height: 100%;
-  overflow: auto;
+  height: auto;
+  overflow: scroll;
 }
 
 .b-content {
@@ -45,6 +45,10 @@
     border-bottom: 1px solid rgb(192, 138, 94);
     background: white;
     transition: background-color .1s ease-out;
+
+    a {
+      color: #683716;
+    }
 
     &.active {
       background: #683716;
@@ -86,6 +90,7 @@
 .b-product__card {
   background-color: white;
   display: flex;
+  position: relative;
   flex-direction: column;
   flex: 1;
 
@@ -106,6 +111,10 @@
     font-size: 18px;
     font-weight: 700;
     color: #000;
+
+    @media screen and (max-width: 600px) {
+      font-size: 14px;
+    }
   }
 
   .b-product__name {
@@ -120,6 +129,9 @@
     -webkit-box-orient: vertical;
     max-height: 54px;
     min-height: 54px;
+    @media screen and (max-width: 600px) {
+      font-size: 11px;
+    }
   }
 }
 
@@ -127,15 +139,93 @@
   background-color: #491b03;
   background: linear-gradient(#7c482b, #491b03);
   color: wheat;
+  position: relative;
 
   h1 {
     color: wheat;
   }
+
+  &::before {
+    content: ' ';
+    background-image: url("../img/waves-top.svg");
+    background-repeat: repeat-x;
+    background-position: top;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 100%;
+  }
+
+  &::after {
+    content: ' ';
+    background-image: url("../img/waves-bottom.svg");
+    background-repeat: repeat-x;
+    background-position: bottom;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 18px;
+    width: 100%;
+  }
+
 }
 
 .b-footer {
-  min-height: 250px;
-  border-top: 3px solid #8a2c05;
+  position: relative;
   background-color: #15151b;
-  background: linear-gradient(#26282b, #15151b);
+  background: linear-gradient(#1e71b8, #1c4687);
+
+  &::before {
+    content: ' ';
+    background-image: url("../img/waves-top.svg");
+    background-repeat: repeat-x;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 100%;
+  }
+}
+
+.b-category__button {
+  padding: 10px 20px;
+  border: 1px solid;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 900;
+  position: relative;
+  display: block;
+  text-align: center;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+}
+
+#b-offcanvas__catalog {
+  .uk-offcanvas-bar {
+    background: #e2ebf7;
+    color: #683716;
+    width: 315px;
+
+    h3 {
+      color: #683716;
+    }
+
+    .uk-close {
+      color: #683716;
+    }
+  }
+}
+
+.b-offcanvas__button {
+  padding: 5px;
+  background: white;
+  display: block;
+  line-height: 20px;
+  border-radius: 3px;
+  border: 1px solid;
+  box-sizing: border-box;
 }

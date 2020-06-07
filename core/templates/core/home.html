@@ -36,23 +36,21 @@
             </div>
         </div>
     </div>
-    <section class="b-section__lead uk-padding-small uk-margin-bottom">
+    <section class="b-section__lead uk-padding-small uk-padding-remove-horizontal uk-margin-bottom">
         <div class="uk-container">
             <div class="uk-card uk-card-body uk-card-small">
-                <h1 class="uk-h2 uk-text-bold">{% sitetree_page_hint from "main_menu" %}</h1>
-                {% filter linebreaksbr %}
-                    {% sitetree_page_description from "main_menu" %}
-                {% endfilter %}
+                <h1 class="uk-h2 uk-text-center uk-text-bold">{{ site_config.title }}</h1>
+                <div class="uk-text-center">{{ site_config.content | safe }}</div>
             </div>
         </div>
     </section>
-    <section class="b-section__works uk-padding-small uk-margin-bottom">
+    <section class="b-section__works uk-padding-small uk-padding-remove-horizontal uk-margin-bottom">
         <div class="uk-container">
             <h3 class="uk-text-bold">{{ site_config.gallery.name }}</h3>
             <div uk-slider>
                 <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
                     <ul class="uk-slider-items uk-child-width-1-3@s uk-child-width-1-5@m uk-grid-small  uk-grid-match"
-                        uk-height-viewport="offset-top: true; offset-bottom: 75" uk-lightbox="animation: slide">
+                        uk-height-viewport="min-height: 250; expand: true" uk-lightbox="animation: slide">
                         {% for photo in site_config.gallery.photos.all %}
                             <li>
                                 <div class="uk-cover-container">
@@ -72,9 +70,26 @@
             </div>
         </div>
     </section>
-    <section class="b-section__products uk-padding-small uk-margin-bottom">
+    <section class="b-section__categories uk-padding-small uk-padding-remove-horizontal uk-margin-bottom">
         <div class="uk-container">
-            <h3 class="uk-text-bold">Интересные предложения</h3>
+            <h3 class="uk-text-bold">Разделы</h3>
+            <div class="uk-flex uk-flex-center uk-flex-wrap uk-child-width-auto uk-grid-small">
+                {% for category in categories %}
+                    <div class="uk-margin-bottom">
+                        <a href="{% url 'store:category' category.slug %}"
+                           class="b-category__button"
+                           title="{{ category.name }}"
+                        >
+                            {{ category.name }}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="b-section__products uk-padding-small uk-padding-remove-horizontal uk-margin-bottom">
+        <div class="uk-container">
+            <h3 class="uk-text-bold">Наши товары</h3>
             <div class="uk-flex uk-flex-wrap uk-child-width-1-5@m uk-grid-small">
                 <div class="uk-margin-bottom">
                     <div style="min-height: 220px; background: #aaa"></div>

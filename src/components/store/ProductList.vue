@@ -1,6 +1,6 @@
 <template>
     <div class="b-product__list">
-        <div class="uk-flex uk-flex-wrap uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l">
+        <div class="uk-flex uk-flex-wrap uk-grid-small uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l">
             <div class="uk-margin-bottom" v-for="product in page.results" :key="product.id">
                 <product :product="product"></product>
             </div>
