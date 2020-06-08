@@ -20,10 +20,10 @@
             <store-menu></store-menu>
         </div>
     </div>
-    <div class="uk-flex uk-flex-wrap uk-padding-small uk-flex-middle uk-flex-between uk-card-default uk-hidden@m uk-position-fixed uk-position-bottom">
-        <div><h4 class="b-page__title uk-margin-remove uk-text-bold">{% sitetree_page_title from "main_menu" %}</h4></div>
+    <div class="b-flymenu">
+        <div><div class="b-flymenu__title">{% sitetree_page_title from "main_menu" %}</div></div>
         <div>
-            <a href="#b-offcanvas__catalog" uk-toggle class="b-offcanvas__button">
+            <a href="#b-offcanvas__catalog" uk-toggle class="b-flymenu__button">
                 <span uk-icon="icon: grid"></span>
             </a>
         </div>
