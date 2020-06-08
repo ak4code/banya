@@ -2,10 +2,8 @@
 {% load solo_tags %}
 {% load sitetree %}
 
-{% block title %}
-    {% get_solo 'core.Config' as site_config %}
-    {{ site_config.name }}
-{% endblock %}
+{% block title %}{% get_solo 'core.Config' as site_config %}{{ site_config.seo_title }}{% endblock %}
+{% block description %}{% get_solo 'core.Config' as site_config %}{{ site_config.seo_description }}{% endblock %}
 
 {% block content %}
     {% get_solo 'core.Config' as site_config %}

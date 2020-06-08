@@ -9,3 +9,8 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         return context
+
+
+class RobotsView(TemplateView):
+    template_name = 'core/robots.txt'
+    content_type = "text/plain"
