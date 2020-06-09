@@ -15,7 +15,7 @@
       </div>
     </a>
     <button class="uk-button uk-button-primary" v-on:click.prevent="addItem(product)">
-      <span v-if="check(product.id)">+ Добавить еще</span>
+      <span v-if="check(product.id)">Оформить</span>
       <span v-else>В корзину</span>
     </button>
   </div>

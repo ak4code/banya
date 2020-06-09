@@ -1,5 +1,5 @@
 <template>
-  <div class="store-menu uk-margin-top">
+  <div class="store-menu uk-margin-bottom">
     <div class="uk-card uk-card-default uk-border-rounded uk-overflow-hidden uk-box-shadow-small">
       <ul class="uk-nav b-storemenu">
         <li v-for="category in categories" v-bind:class="{ 'active': id == category.id }" :key="category.id">
@@ -24,9 +24,9 @@
             this.getCategories()
         },
         mounted () {
-            let fHeight = document.querySelector('.b-footer')
-            let aHeight = document.querySelector('.b-sidebar')
-            aHeight.style.paddingBottom = `${fHeight.offsetHeight + 20}px`
+            // let fHeight = document.querySelector('.b-footer')
+            // let aHeight = document.querySelector('.b-sidebar')
+            // aHeight.style.paddingBottom = `${fHeight.offsetHeight + 20}px`
         },
         computed: {
             currentCategory: function (id) {
