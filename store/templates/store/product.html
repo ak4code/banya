@@ -7,7 +7,51 @@
     <store-menu id="{{ product.category.id }}"></store-menu>
 {% endblock %}
 {% block content %}
-    <div class="uk-margin-top">
-        <h1 class="uk-h2 uk-text-bold">{{ product.name }}</h1>
+    <div class="b-product__full uk-margin-top uk-flex uk-flex-wrap uk-grid-small">
+        <div class="uk-width-3-5@m">
+            <div class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-card-small uk-border-rounded">
+                <div class="b-product__image-box" uk-lightbox>
+                    <a href="{{ product.image.url }}">
+                        <div class="b-product__image-holder">
+                            <img data-src="{{ product.image.url }}" width="" height="400" uk-img>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="uk-width-2-5@m">
+            <div class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-card-small uk-border-rounded">
+                <h1 class="uk-h4 uk-margin-remove-bottom uk-text-bold">{{ product.name }}</h1>
+                <div class="uk-text-muted uk-text-small uk-margin-bottom">{{ product.category.name }}</div>
+                {% if product.in_stock %}
+                    <div class="uk-label uk-label-success uk-margin-bottom">В наличии</div>
+                {% else %}
+                    <div class="uk-label uk-label-warning uk-margin-bottom">Под заказ</div>
+                {% endif %}
+                <div class="uk-text-bold uk-text-large">
+                    {{ product.price }} <small>₽</small>
+                </div>
+                <div class="uk-margin uk-text-small uk-text-muted">
+                    {{ product.features | linebreaksbr }}
+                </div>
+                <div class="uk-margin">
+                    <button class="uk-button uk-button-large uk-width-1-1 uk-button-primary">
+                        В корзину
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="uk-width-1-1 uk-margin-top">
+            <div class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-card-small uk-border-rounded">
+                <ul uk-tab>
+                    <li><a href="">Описание</a></li>
+                    <li><a href="">Характеристики</a></li>
+                </ul>
+                <ul class="uk-switcher uk-margin">
+                    <li>{{ product.description | linebreaksbr }}</li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}

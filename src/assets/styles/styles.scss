@@ -1,6 +1,6 @@
 @import "theme/variables";
-@import "~uikit/src/scss/variables.scss";
-@import "~uikit/src/scss/mixins.scss";
+@import "~uikit/src/scss/variables-theme.scss";
+@import "~uikit/src/scss/mixins-theme.scss";
 // 3. Your custom mixin overwrites.
 @mixin b-waves($color) {
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2028.22%2010.07%22%3E%3Cg%20data-name%3D%22waves%22%3E%3Cpath%20d%3D%22M28.22%200v5a10.4%2010.4%200%2000-2.93%201.4c-.72.46-1.36%201-2%201.46l-.37.3-.8.56a8.52%208.52%200%2001-4.7%201.38%208.08%208.08%200%2001-4.17-1.23%2023.78%2023.78%200%2001-2-1.46l-.87-.68A11.51%2011.51%200%20000%205V0z%22%20fill%3D%22%23#{$color}%22%20data-name%3D%22%D0%A1%D0%BB%D0%BE%D0%B9%201%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
@@ -12,7 +12,7 @@
 }
 
 //@import "theme/accordion-mixins.scss";
-@import "~uikit/src/scss/uikit.scss";
+@import "~uikit/src/scss/uikit-theme.scss";
 
 #b-app {
   height: 100%;
@@ -31,11 +31,11 @@
 
 .b-sidebar {
   position: sticky;
-  top: 50px;
+  top: 70px;
   flex: 0 0 auto;
   width: 300px;
   bottom: 0;
-  height: 100vh;
+  height: 92vh;
   overflow: auto;
   border-radius: 5px;
   z-index: 2;
@@ -165,6 +165,34 @@
     min-height: 54px;
     @media screen and (max-width: 600px) {
       font-size: 11px;
+    }
+  }
+}
+
+.b-product__full {
+  .b-product__image-box {
+    position: relative;
+    padding: 50%;
+    cursor: zoom-in;
+
+    .b-product__image-holder {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+
+      img {
+        display: block;
+        max-width: 80%;
+        max-height: 100%;
+        margin: 0 auto;
+        -o-object-fit: contain;
+        object-fit: contain;
+        flex: none;
+      }
     }
   }
 }
