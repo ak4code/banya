@@ -55,7 +55,7 @@
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav uk-visible@m uk-text-uppercase uk-text-bold">
                         <li style="border-right: 1px solid">
-                            <a href="{% url 'core:home' %}">
+                            <a href="{% url 'store:cart' %}">
                                 <cart-button></cart-button>
                             </a>
                         </li>
@@ -76,7 +76,7 @@
                 {% sitetree_menu from "main_menu" include "trunk, topmenu" template "core/nav/menu.html" %}
                 <hr>
                 <li class="uk-text-center">
-                    <a href="{% url 'core:home' %}">
+                    <a href="{% url 'store:cart' %}">
                         <cart-button></cart-button>
                     </a>
                 </li>
@@ -90,7 +90,7 @@
             {% block content %}{% endblock %}
         {% endblock %}
     </section>
-    <footer id="b-footer" class="b-footer uk-padding uk-padding-remove-horizontal uk-light">
+    <footer id="b-footer" class="b-footer uk-padding uk-padding-remove-horizontal uk-margin-large-top uk-light">
         <div class="uk-container">
             <div class="uk-flex uk-flex-wrap uk-grid-small uk-child-width-1-4@m uk-child-width-1-1">
                 <div>

@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from .models import Category, Product
 
 
@@ -45,3 +45,7 @@ class StoreProductDetailView(DetailView):
 
     def get_queryset(self):
         return Product.objects.select_related('category').filter(category__slug=self.kwargs['category'])
+
+
+class StoreCartView(TemplateView):
+    template_name = 'store/cart.html'

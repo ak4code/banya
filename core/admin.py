@@ -1,6 +1,6 @@
 from django.contrib import admin
 from solo.admin import SingletonModelAdmin
-from .models import Config, Gallery, Photo
+from .models import Config, Gallery, Photo, Page
 
 
 @admin.register(Config)
@@ -8,7 +8,7 @@ class ConfigAdmin(SingletonModelAdmin):
     fieldsets = (
         ('Основные', {
             'classes': ('wide', 'extrapretty'),
-            'fields': ('name', 'logo', 'phone', 'email', 'address')
+            'fields': ('name', 'phone', 'email', 'address')
         }),
         ('Блок приветствия', {
             'classes': ('wide', 'extrapretty'),
@@ -35,6 +35,21 @@ class PhotoInlines(admin.TabularInline):
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
     inlines = (PhotoInlines,)
+
+
+@admin.register(Page)
+class PageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'create_at', 'update_at')
+    fieldsets = (
+        ('Основные', {
+            'classes': ('wide', 'extrapretty'),
+            'fields': ('title', 'content',)
+        }),
+        ('SEO Настройки', {
+            'classes': ('wide', 'extrapretty'),
+            'fields': ('seo_title', 'seo_description'),
+        }),
+    )
 
 
 admin.site.site_header = "Банщик"

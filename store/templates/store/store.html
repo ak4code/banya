@@ -12,16 +12,21 @@
     <div class="uk-margin-top">
         <h1 class="b-page__title uk-h2 uk-text-bold">{% sitetree_page_title from "main_menu" %}</h1>
         <product-list></product-list>
+        <div class="uk-card uk-card-body uk-card-default uk-box-shadow-medium uk-border-rounded">
+            {% sitetree_page_description from "main_menu" %}
+        </div>
     </div>
     <div id="b-offcanvas__catalog" uk-offcanvas="flip: true">
         <div class="uk-offcanvas-bar">
             <button class="uk-offcanvas-close" type="button" uk-close></button>
-            <h3>Каталог</h3>
+            <h3>{% sitetree_page_title from "main_menu" %}</h3>
             <store-menu></store-menu>
         </div>
     </div>
     <div class="b-flymenu uk-hidden@m">
-        <div><div class="b-flymenu__title">{% sitetree_page_title from "main_menu" %}</div></div>
+        <div>
+            <div class="b-flymenu__title">{% sitetree_page_title from "main_menu" %}</div>
+        </div>
         <div>
             <a href="#b-offcanvas__catalog" uk-toggle class="b-flymenu__button">
                 <span uk-icon="icon: grid"></span>
