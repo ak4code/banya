@@ -2,10 +2,8 @@
 
 {% block layout %}
     <div class="uk-container uk-position-relative">
-        <aside class="b-sidebar uk-visible@m">
-            <div class="b-flybar" uk-sticky="bottom: .b-footer; offset: 70">
-                {% block sidebar %}{% endblock %}
-            </div>
+        <aside class="b-sidebar uk-box-shadow-medium uk-visible@m">
+            {% block sidebar %}{% endblock %}
         </aside>
         <main class="b-content">
             {% block content %}{% endblock %}
