@@ -10,15 +10,28 @@ const cart = {
     INCREMENT_QUANTITY (state, idx) {
       state.items[idx].quantity += 1
       state.items[idx].amount = state.items[idx].price * state.items[idx].quantity
+    },
+    SET_CART (state, items) {
+      state.items = items
     }
   },
   actions: {
-    addItem ({ state, getters, commit }, item) {
+    addItem ({ state, getters, commit, dispatch }, item) {
       if (getters.itemById(item.id) !== -1) {
         commit('INCREMENT_QUANTITY', getters.itemById(item.id))
       } else {
         commit('ADD_ITEM', item)
       }
+      dispatch('saveCart')
+    },
+    getCart ({ state, commit }) {
+      if (!this._vm.$storage.get('cart')) {
+        this._vm.$storage.set('cart', state.items)
+      }
+      commit('SET_CART', this._vm.$storage.get('cart'))
+    },
+    saveCart ({ state }) {
+      this._vm.$storage.set('cart', state.items)
     }
   },
   getters: {

@@ -14,10 +14,12 @@
 
       </div>
     </a>
-    <button class="uk-button uk-button-primary" v-on:click.prevent="addItem(product)">
-      <span v-if="check(product.id)">Оформить</span>
-      <span v-else>В корзину</span>
-    </button>
+    <a v-if="check(product.id)" class="uk-button uk-button-danger" href="/catalog/cart/">
+      <span>Оформить</span>
+    </a>
+    <a class="uk-button uk-button-primary" v-else v-on:click.prevent="addItem(product)">
+      <span>В корзину</span>
+    </a>
   </div>
 </template>
 
@@ -34,7 +36,7 @@
         },
         methods: {
             ...mapActions({
-                addItem: 'cart/addItem',
+                addItem: 'cart/addItem'
             })
         }
     }
