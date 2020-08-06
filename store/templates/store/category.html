@@ -4,7 +4,7 @@
 {% block description %}{{ category.seo_description }}{% endblock %}
 
 {% block sidebar %}
-    <store-menu id="{{ category.id }}"></store-menu>
+    <store-menu :id="{{ category.id }}"></store-menu>
 {% endblock %}
 {% block content %}
     <div class="uk-margin-top">
@@ -18,7 +18,7 @@
         <div class="uk-offcanvas-bar">
             <button class="uk-offcanvas-close" type="button" uk-close></button>
             <h3>Каталог</h3>
-            <store-menu id="{{ category.id }}"></store-menu>
+            <store-menu :id="{{ category.id }}"></store-menu>
         </div>
     </div>
     <div class="b-flymenu uk-hidden@m">

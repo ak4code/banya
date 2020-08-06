@@ -8,7 +8,7 @@
   background-repeat: repeat-x;
   position: absolute;
   height: 18px;
-  width: 100%;
+  width: 101%;
 }
 
 //@import "theme/accordion-mixins.scss";
@@ -209,14 +209,14 @@
 
   &::before {
     @include b-waves('7c482b');
-    top: -18px;
+    top: -17px;
     left: 0;
     transform: rotate(180deg);
   }
 
   &::after {
     @include b-waves('491b03');
-    bottom: -18px;
+    bottom: -17px;
     left: 0;
   }
 
@@ -230,7 +230,7 @@
 
   &::before {
     @include b-waves('1e71b8');
-    top: -18px;
+    top: -17px;
     left: 0;
     transform: rotate(180deg);
   }
