@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load solo_tags %}
 {% load sitetree %}
+{% load static %}
 
 {% block title %}{% get_solo 'core.Config' as site_config %}{{ site_config.seo_title }}{% endblock %}
 {% block description %}{% get_solo 'core.Config' as site_config %}{{ site_config.seo_description }}{% endblock %}
@@ -10,7 +11,9 @@
     <div class="uk-container">
         <div class="uk-flex uk-flex-wrap uk-child-width-1-2@m uk-margin-top uk-grid-small">
             <div class="uk-margin-bottom">
-                <div class="uk-card uk-card-body uk-card-small uk-card-primary" style="min-height: 350px"></div>
+                <div class="uk-cover-container" style="min-height: 350px">
+                    <img src="{% static 'core/slide.png' %}" alt="" uk-cover>
+                </div>
             </div>
             <div>
                 <div class="uk-flex uk-flex-wrap uk-child-width-1-2 uk-grid-small">
