@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.shortcuts import render
 from django.utils.html import format_html
 
 from .models import Category, Product
@@ -10,16 +11,16 @@ from adminsortable.admin import SortableAdmin
 @admin.register(Category)
 class CategoryAdmin(SortableAdmin):
     search_fields = ('name',)
-    list_display = ('image_tag', 'name', 'create_at', 'update_at')
-    readonly_fields = ['image_tag',]
+    list_display = ('image_tag', 'name', 'is_active', 'create_at', 'update_at')
+    readonly_fields = ['image_tag', ]
     list_display_links = ('image_tag', 'name')
     fieldsets = (
         (None, {
-            'fields': ('name', 'image_tag', 'image')
+            'fields': ('name', 'image_tag', 'image', 'is_active')
         }),
         ('SEO Настройки', {
             'classes': ('wide', 'extrapretty',),
-            'fields': ('seo_title', 'seo_description', 'slug', ),
+            'fields': ('seo_title', 'seo_description', 'slug',),
         }),
     )
 
@@ -73,7 +74,7 @@ class ProductAdmin(ImportExportActionModelAdmin):
     list_display_links = ('image_tag', 'name')
     list_filter = ('category',)
     search_fields = ('name',)
-    readonly_fields = ['image_tag',]
+    readonly_fields = ['image_tag', ]
     fieldsets = (
         (None, {
             'fields': ('name', 'category', 'description', 'price', 'in_stock', 'unit', 'quantity', 'image_tag', 'image',

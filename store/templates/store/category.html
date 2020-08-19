@@ -1,11 +1,9 @@
 {% extends 'layouts/sidebar.html' %}
+{% load store_tags %}
 
 {% block title %}{{ category.get_title }} | {{ block.super }}{% endblock %}
 {% block description %}{{ category.seo_description }}{% endblock %}
 
-{% block sidebar %}
-    <store-menu :id="{{ category.id }}"></store-menu>
-{% endblock %}
 {% block content %}
     <div class="uk-margin-top">
         <h1 class="b-page__title uk-h2 uk-text-bold">{{ category.name }}</h1>
@@ -17,8 +15,8 @@
     <div id="b-offcanvas__catalog" uk-offcanvas="flip: true">
         <div class="uk-offcanvas-bar">
             <button class="uk-offcanvas-close" type="button" uk-close></button>
-            <h3>Каталог</h3>
-            <store-menu :id="{{ category.id }}"></store-menu>
+            <h3>{{ category.get_title }}</h3>
+            {% store_menu %}
         </div>
     </div>
     <div class="b-flymenu uk-hidden@m">

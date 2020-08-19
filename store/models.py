@@ -13,6 +13,7 @@ class Category(SEOBase, SortableMixin):
                             db_index=True)
     position = models.PositiveIntegerField(default=0, editable=False, db_index=True, verbose_name='Порядок')
     image = models.ImageField(upload_to='store/category', blank=True, null=True, verbose_name='Загрузка изображения')
+    is_active = models.BooleanField(default=True, verbose_name='Активно', help_text='Отображение на сайте вкл/выкл')
 
     def __str__(self):
         return self.name
@@ -71,6 +72,12 @@ class Product(SEOBase):
             'category': self.category.slug,
             'pk': self.pk,
         })
+
+    def get_full_img(self):
+        if self.image:
+            return get_thumbnailer(self.image).url
+        else:
+            return static('store/no-image.webp')
 
     def get_medium_img(self):
         if self.image:

@@ -5,23 +5,31 @@ const cart = {
   }),
   mutations: {
     ADD_ITEM (state, item) {
-      state.items.push({ id: item.id, name: item.name, price: +item.price, quantity: 1, amount: +item.price })
+      state.items.push({
+        id: item.id,
+        name: item.name,
+        price: +item.price,
+        quantity: 1,
+        amount: +item.price,
+        in_stock: item.in_stock,
+        image: item.medium_img
+      })
     },
-    INCREMENT_QUANTITY (state, idx) {
-      state.items[idx].quantity += 1
-      state.items[idx].amount = state.items[idx].price * state.items[idx].quantity
+    CHANGE_QUANTITY (state, payload) {
+      state.items[payload.idx].quantity = payload.quantity
+      state.items[payload.idx].amount = state.items[payload.idx].price * state.items[payload.idx].quantity
+    },
+    REMOVE_ITEM (state, payload) {
+      state.items.splice(payload, 1)
     },
     SET_CART (state, items) {
       state.items = items
     }
   },
   actions: {
-    addItem ({ state, getters, commit, dispatch }, item) {
-      if (getters.itemById(item.id) !== -1) {
-        commit('INCREMENT_QUANTITY', getters.itemById(item.id))
-      } else {
-        commit('ADD_ITEM', item)
-      }
+    async addItem ({ commit, dispatch }, id) {
+      const { data } = await this._vm.$axios.get(`/api/store/products/${id}/`)
+      commit('ADD_ITEM', data)
       dispatch('saveCart')
     },
     getCart ({ state, commit }) {
@@ -29,6 +37,14 @@ const cart = {
         this._vm.$storage.set('cart', state.items)
       }
       commit('SET_CART', this._vm.$storage.get('cart'))
+    },
+    changeQuantity ({ commit, dispatch }, payload) {
+      commit('CHANGE_QUANTITY', payload)
+      dispatch('saveCart')
+    },
+    removeItem ({ commit, dispatch }, payload) {
+      commit('REMOVE_ITEM', payload)
+      dispatch('saveCart')
     },
     saveCart ({ state }) {
       this._vm.$storage.set('cart', state.items)
@@ -43,6 +59,9 @@ const cart = {
     },
     totalAmount: state => {
       return state.items.reduce((a, b) => +a + +b.amount, 0)
+    },
+    getItems: state => {
+      return state.items
     }
   }
 }

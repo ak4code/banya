@@ -1,12 +1,9 @@
 {% extends 'layouts/sidebar.html' %}
 {% load sitetree %}
+{% load store_tags %}
 
 {% block title %}{% sitetree_page_title from "main_menu" %} | {{ block.super }}{% endblock %}
 {% block description %}{% sitetree_page_description from "main_menu" %}{% endblock %}
-
-{% block sidebar %}
-    <store-menu></store-menu>
-{% endblock %}
 
 {% block content %}
     <div class="uk-margin-top">
@@ -20,7 +17,7 @@
         <div class="uk-offcanvas-bar">
             <button class="uk-offcanvas-close" type="button" uk-close></button>
             <h3>{% sitetree_page_title from "main_menu" %}</h3>
-            <store-menu></store-menu>
+            {% store_menu %}
         </div>
     </div>
     <div class="b-flymenu uk-hidden@m">

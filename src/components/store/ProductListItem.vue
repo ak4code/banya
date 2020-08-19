@@ -14,30 +14,18 @@
 
       </div>
     </a>
-    <a v-if="check(product.id)" class="uk-button uk-button-danger" href="/catalog/cart/">
-      <span>Оформить</span>
-    </a>
-    <a class="uk-button uk-button-primary" v-else v-on:click.prevent="addItem(product)">
-      <span>В корзину</span>
-    </a>
+    <buy-button :id="product.id"></buy-button>
   </div>
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex'
+    import BuyButton from './BuyButton'
 
     export default {
-        name: 'product',
+        name: 'product-list-item',
         props: ['product'],
-        computed: {
-            ...mapGetters({
-                check: 'cart/checkById'
-            })
-        },
-        methods: {
-            ...mapActions({
-                addItem: 'cart/addItem'
-            })
+        components: {
+            BuyButton
         }
     }
 </script>

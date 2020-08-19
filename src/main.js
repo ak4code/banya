@@ -5,9 +5,10 @@ import store from './store'
 import UIkit from 'uikit'
 import Icons from 'uikit/dist/js/uikit-icons'
 import '@/assets/styles/styles.scss'
-import StoreMenu from '@/components/store/StoreMenu'
 import ProductList from '@/components/store/ProductList'
 import CartButton from '@/components/store/CartButton'
+import BuyButton from '@/components/store/BuyButton'
+import Cart from '@/components/store/Cart'
 
 Vue.use(Vue2Storage, {
   prefix: 'app_',
@@ -20,12 +21,15 @@ window.UIkit = UIkit
 
 Vue.config.productionTip = false
 
-new Vue({
+const app = new Vue({
   store,
   el: '#b-app',
   components: {
-    StoreMenu,
+    BuyButton,
     ProductList,
-    CartButton
+    CartButton,
+    Cart
   }
 })
+
+store.$app = app

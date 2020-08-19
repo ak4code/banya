@@ -1,21 +1,28 @@
 {% extends 'layouts/sidebar.html' %}
+{% load static %}
+{% load store_tags %}
 
 {% block title %}{{ product.get_title }} | {{ block.super }}{% endblock %}
 {% block description %}{{ product.seo_description }}{% endblock %}
 
-{% block sidebar %}
-    <store-menu id="{{ product.category.id }}"></store-menu>
-{% endblock %}
 {% block content %}
     <div class="b-product__full uk-margin-top uk-flex uk-flex-wrap uk-grid-small">
         <div class="uk-width-3-5@m">
             <div class="uk-card uk-card-default uk-card-body uk-box-shadow-medium uk-card-small uk-border-rounded">
                 <div class="b-product__image-box" uk-lightbox>
-                    <a href="{{ product.image.url }}">
-                        <div class="b-product__image-holder">
-                            <img data-src="{{ product.image.url }}" width="" height="400" uk-img>
-                        </div>
-                    </a>
+                    {% if product.image %}
+                        <a href="{{ product.image.url }}">
+                            <div class="b-product__image-holder">
+                                <img data-src="{{ product.image.url }}" width="" height="400" uk-img>
+                            </div>
+                        </a>
+                    {% else %}
+                        <a href="{% static 'store/no-image.webp' %}">
+                            <div class="b-product__image-holder">
+                                <img data-src="{% static 'store/no-image.webp' %}" width="" height="400" uk-img>
+                            </div>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -34,11 +41,7 @@
                 <div class="uk-margin uk-text-small uk-text-muted">
                     {{ product.features | linebreaksbr }}
                 </div>
-                <div class="uk-margin">
-                    <button class="uk-button uk-button-large uk-width-1-1 uk-button-primary">
-                        В корзину
-                    </button>
-                </div>
+                <buy-button :id="{{ product.id }}"></buy-button>
             </div>
         </div>
         <div class="uk-width-1-1 uk-margin-top">
@@ -49,7 +52,7 @@
                 </ul>
                 <ul class="uk-switcher uk-margin">
                     <li>{{ product.description | linebreaksbr }}</li>
-                    <li>{{ product.features | linebreaksbr   }}</li>
+                    <li>{{ product.features | linebreaksbr }}</li>
                 </ul>
             </div>
         </div>

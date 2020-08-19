@@ -1,0 +1,15 @@
+<div class="store-menu uk-margin-bottom">
+    <div class="uk-card uk-card-default uk-border-rounded uk-overflow-hidden uk-box-shadow-small">
+        <ul class="uk-nav b-storemenu">
+            {% for catalog in catalogs %}
+                <li class="{% if request.path_info == catalog.get_absolute_url %}active{% endif %}">
+                    <a href="{% url 'store:category' catalog.slug %}" class="uk-flex uk-flex-between uk-flex-middle"
+                       title="{{ catalog.name }}">
+                        <div class="uk-width-expand">{{ catalog.name }}</div>
+                        <div class="b-counter uk-width-auto">{{ catalog.products.count }}</div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

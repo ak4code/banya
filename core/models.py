@@ -41,7 +41,7 @@ class Config(SingletonModel, SEOBase):
 
 class Page(SEOBase):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
-    content = models.TextField(blank=True, null=True, verbose_name='Контент')
+    content = HTMLField(blank=True, null=True, verbose_name='Контент')
 
     def get_title(self):
         return self.seo_title or self.title

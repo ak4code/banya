@@ -2,7 +2,7 @@
   <div class="b-product__list">
     <div class="uk-flex uk-flex-wrap uk-grid-small uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l">
       <div class="uk-margin-bottom" v-for="product in page.results" :key="product.id">
-        <product :product="product"></product>
+        <product-list-item :product="product"></product-list-item>
       </div>
     </div>
     <div class="b-pagination" v-if="page.num_pages > 1">
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import Product from './Product'
+    import ProductListItem from './ProductListItem'
     import { listing } from '../mixins/listing'
 
     export default {
@@ -35,7 +35,7 @@
             if (this.category) this.endpoint += `?category=${this.category}`
         },
         components: {
-            Product
+            ProductListItem
         }
     }
 </script>

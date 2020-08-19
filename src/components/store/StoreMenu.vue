@@ -28,7 +28,6 @@
         }),
         created () {
             this.getCategories()
-            this.loading = !this.loading
         },
         mounted () {
         },
@@ -38,6 +37,7 @@
                 await this.$axios.get('/api/store/categories')
                     .then(res => {
                         this.categories = res.data
+                        this.loading = !this.loading
                     })
                     .catch(err => console.error(err))
             },
