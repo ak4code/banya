@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.shortcuts import render
+from django.contrib import messages
+from django.utils.translation import ngettext
 from django.utils.html import format_html
 
 from .models import Category, Product
@@ -70,11 +71,12 @@ class ProductResource(resources.ModelResource):
 @admin.register(Product)
 class ProductAdmin(ImportExportActionModelAdmin):
     resource_class = ProductResource
-    list_display = ('image_tag', 'name', 'category', 'price', 'create_at', 'update_at')
+    list_display = ('image_tag', 'name', 'category', 'price', 'in_stock', 'create_at', 'update_at')
     list_display_links = ('image_tag', 'name')
     list_filter = ('category',)
     search_fields = ('name',)
     readonly_fields = ['image_tag', ]
+    actions = ['make_available', 'make_unavailable']
     fieldsets = (
         (None, {
             'fields': ('name', 'category', 'description', 'price', 'in_stock', 'unit', 'quantity', 'image_tag', 'image',
@@ -90,3 +92,23 @@ class ProductAdmin(ImportExportActionModelAdmin):
         return format_html('<img src="{}" width="50" height="50" />'.format(obj.get_small_img()))
 
     image_tag.short_description = 'Миниатюра'
+
+    def make_available(self, request, queryset):
+        updated = queryset.update(in_stock=True)
+        self.message_user(request, ngettext(
+            '%d товар помечен как "В наличии".',
+            '%d товаров помечены как "В наличии".',
+            updated,
+        ) % updated, messages.SUCCESS)
+
+    make_available.short_description = "Сделать выделенные товары 'В наличии'"
+
+    def make_unavailable(self, request, queryset):
+        updated = queryset.update(in_stock=False)
+        self.message_user(request, ngettext(
+            '%d товар помечен как "Под заказ".',
+            '%d товаров помечены как "Под заказ".',
+            updated,
+        ) % updated, messages.SUCCESS)
+
+    make_unavailable.short_description = "Сделать выделенные товары 'Под заказ'"

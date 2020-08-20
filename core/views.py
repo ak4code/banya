@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from store.models import Category
+from store.models import Category, Product
 
 
 class HomeView(TemplateView):
@@ -7,7 +7,8 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.filter(is_active=True)
+        context['categories'] = Category.objects.prefetch_related('products').filter(is_active=True)
+        context['products'] = Product.objects.select_related('category').all()[:8]
         return context
 
 

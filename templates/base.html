@@ -6,118 +6,133 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>{% block title %}{{ site_config.name }}{% endblock %}</title>
-    <meta name="description" content="{% block description %}{% endblock %}">
-    <link rel="canonical" href="{{ request.build_absolute_uri }}">
-    <link rel="icon" type="image/ico" href="{% static 'core/favicon.ico' %}">
-    {% get_files 'app' 'js' as app_js_files %}
-    {% get_files 'app' 'css' as app_css_files %}
-    {% for js_file in app_js_files %}
-        <link href="{{ js_file.url }}" rel="preload" as="script">
-    {% endfor %}
-    {% get_files 'chunk-vendors' 'js' as chunk_js_files %}
-    {% for js_file in chunk_js_files %}
-        <link href="{{ js_file.url }}" rel="preload" as="script">
-    {% endfor %}
-    {% for css_file in app_css_files %}
-        <link href="{{ css_file.url }}" rel="preload" as="style">
-    {% endfor %}
-    {% render_bundle 'app' 'css' %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>{% block title %}{{ site_config.name }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{% endblock %}">
+  <link rel="canonical" href="{{ request.build_absolute_uri }}">
+  <link rel="icon" type="image/ico" href="{% static 'core/favicon.ico' %}">
+  {% get_files 'app' 'js' as app_js_files %}
+  {% get_files 'app' 'css' as app_css_files %}
+  {% for js_file in app_js_files %}
+    <link href="{{ js_file.url }}" rel="preload" as="script">
+  {% endfor %}
+  {% get_files 'chunk-vendors' 'js' as chunk_js_files %}
+  {% for js_file in chunk_js_files %}
+    <link href="{{ js_file.url }}" rel="preload" as="script">
+  {% endfor %}
+  {% for css_file in app_css_files %}
+    <link href="{{ css_file.url }}" rel="preload" as="style">
+  {% endfor %}
+  {% render_bundle 'app' 'css' %}
 </head>
 <body>
 <div id="b-app">
-    <header class="b-header" uk-sticky>
-        <div class="uk-container">
-            <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-                <div class="uk-navbar-left uk-hidden@m">
-                    <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
-                        <li>
-                            <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
-                                <img src="{% static 'core/logo-dark.svg' %}" alt="Банщик" style="height: 40px">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="uk-navbar-left uk-visible@m">
-                    <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
-                        <li>
-                            <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
-                                <img src="{% static 'core/logo-dark.svg' %}" alt="Банщик" style="height: 40px">
-                            </a>
-                        </li>
-                        {% sitetree_menu from "main_menu" include "trunk, topmenu" template "core/nav/menu.html" %}
-                    </ul>
-                </div>
-                <div class="uk-navbar-right">
-                    <ul class="uk-navbar-nav uk-visible@m uk-text-uppercase uk-text-bold">
-                        <li style="border-right: 1px solid">
-                            <a href="{% url 'store:cart' %}">
-                                <cart-button></cart-button>
-                            </a>
-                        </li>
-                        <li><a href="tel:{{ site_config.phone }}">{{ site_config.phone }}</a></li>
-                    </ul>
-                    <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle href="#b-offcanvas"></a>
-                </div>
-            </nav>
+  <header class="b-header" uk-sticky>
+    <div class="uk-container">
+      <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+        <div class="uk-navbar-left uk-hidden@m">
+          <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
+            <li>
+              <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
+                <img src="{% static 'core/logo-dark.svg' %}" alt="Банщик" style="height: 40px">
+              </a>
+            </li>
+          </ul>
         </div>
-    </header>
-    <div id="b-offcanvas" uk-offcanvas>
-        <div class="uk-offcanvas-bar">
-            <div class="uk-text-center">
-                <img src="{% static 'core/logo-light.svg' %}" style="height: 40px">
-            </div>
-            <hr>
-            <ul class="uk-nav uk-nav-primary">
-                {% sitetree_menu from "main_menu" include "trunk, topmenu" template "core/nav/menu.html" %}
-                <hr>
-                <li class="uk-text-center">
-                    <a href="{% url 'store:cart' %}">
-                        <cart-button></cart-button>
-                    </a>
-                </li>
-                <hr>
-                <li><a href="tel:{{ site_config.phone }}">{{ site_config.phone }}</a></li>
-            </ul>
+        <div class="uk-navbar-left uk-visible@m">
+          <ul class="uk-navbar-nav uk-text-uppercase uk-text-bold">
+            <li>
+              <a href="{% url 'core:home' %}" class="uk-padding-remove-left">
+                <img src="{% static 'core/logo-dark.svg' %}" alt="Банщик" style="height: 40px">
+              </a>
+            </li>
+            {% sitetree_menu from "main_menu" include "trunk, topmenu" template "core/nav/menu.html" %}
+          </ul>
         </div>
+        <div class="uk-navbar-right">
+          <ul class="uk-navbar-nav uk-visible@m uk-text-uppercase uk-text-bold">
+            <li style="border-right: 1px solid">
+              <a href="{% url 'store:cart' %}">
+                <cart-button></cart-button>
+              </a>
+            </li>
+            <li><a href="tel:{{ site_config.phone }}">{{ site_config.phone }}</a></li>
+          </ul>
+          <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle href="#b-offcanvas"></a>
+        </div>
+      </nav>
     </div>
-    <section class="b-layout">
-        {% block layout %}
-            {% block content %}{% endblock %}
-        {% endblock %}
-    </section>
-    <footer id="b-footer" class="b-footer uk-padding uk-padding-remove-horizontal uk-margin-large-top uk-light">
-        <div class="uk-container">
-            <div class="uk-flex uk-flex-wrap uk-grid-small uk-child-width-1-4@m uk-child-width-1-1">
-                <div>
-                    <div class="uk-card uk-card-small uk-card-body">
-                        <h4 class="uk-heading-divider">Контакты</h4>
-                        <div>
-                            <ul class="uk-list uk-text-small">
-                                <li><strong>Телефон:</strong></li>
-                                <li>{{ site_config.phone }}</li>
-                                <li><strong>Email:</strong></li>
-                                <li>{{ site_config.email }}</li>
-                                <li><strong>Адрес:</strong></li>
-                                <li>{{ site_config.address | linebreaksbr }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+  </header>
+  <div id="b-offcanvas" uk-offcanvas>
+    <div class="uk-offcanvas-bar">
+      <div class="uk-text-center">
+        <img src="{% static 'core/logo-light.svg' %}" style="height: 40px">
+      </div>
+      <hr>
+      <ul class="uk-nav uk-nav-primary">
+        {% sitetree_menu from "main_menu" include "trunk, topmenu" template "core/nav/menu.html" %}
+        <hr>
+        <li class="uk-text-center">
+          <a href="{% url 'store:cart' %}">
+            <cart-button></cart-button>
+          </a>
+        </li>
+        <hr>
+        <li><a href="tel:{{ site_config.phone }}">{{ site_config.phone }}</a></li>
+      </ul>
+    </div>
+  </div>
+  <section class="b-layout">
+    {% block layout %}
+      {% block content %}{% endblock %}
+    {% endblock %}
+  </section>
+  <footer id="b-footer" class="b-footer uk-padding uk-padding-remove-horizontal uk-margin-large-top uk-light">
+    <div class="uk-container">
+      <div class="uk-flex uk-flex-wrap uk-child-width-1-4@m uk-child-width-1-1">
+        <div>
+          <div class="uk-card uk-card-small uk-card-body">
+            <h4 class="uk-heading-divider">Контакты</h4>
+            <div>
+              <ul class="uk-list uk-text-small">
+                <li><strong>Телефон:</strong></li>
+                <li>{{ site_config.phone }}</li>
+                <li><strong>Email:</strong></li>
+                <li>{{ site_config.email }}</li>
+                <li><strong>Адрес:</strong></li>
+                <li>{{ site_config.address | linebreaksbr }}</li>
+              </ul>
             </div>
-            <div class="uk-flex uk-flex-center uk-grid-small">
-                <div class="uk-margin">
-                    <div>
-                        <img src="{% static 'core/logo-light.svg' %}" style="height: 70px">
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </footer>
+        <div>
+          <div class="uk-card uk-card-small uk-card-body">
+            <h4 class="uk-heading-divider">Footer widget 1</h4>
+          </div>
+        </div>
+        <div>
+          <div class="uk-card uk-card-small uk-card-body">
+            <h4 class="uk-heading-divider">Footer widget 2</h4>
+          </div>
+        </div>
+        <div>
+          <div class="uk-card uk-card-small uk-card-body">
+            <h4 class="uk-heading-divider">Footer widget 3</h4>
+          </div>
+        </div>
+      </div>
+      <div class="uk-flex uk-flex-center uk-grid-small">
+        <div class="uk-margin">
+          <div>
+            <img src="{% static 'core/logo-light.svg' %}" style="height: 70px">
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 </div>
 {% render_bundle 'chunk-vendors' 'js' %}
 {% render_bundle 'app' 'js' %}
