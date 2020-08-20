@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
-{% load solo_tags %}
+
 {% load sitetree %}
 {% load static %}
 
-{% block title %}{% get_solo 'core.Config' as site_config %}{{ site_config.seo_title }}{% endblock %}
-{% block description %}{% get_solo 'core.Config' as site_config %}{{ site_config.seo_description }}{% endblock %}
+{% block title %}{{ site_config.seo_title }}{% endblock %}
+{% block description %}{{ site_config.seo_description }}{% endblock %}
 
 {% block content %}
-    {% get_solo 'core.Config' as site_config %}
     <div class="uk-container">
         <div class="uk-flex uk-flex-wrap uk-child-width-1-2@m uk-margin-top uk-grid-small">
             <div class="uk-margin-bottom">
