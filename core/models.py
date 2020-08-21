@@ -1,9 +1,11 @@
 from django.templatetags.static import static
 from django.db import models
+from django.urls import reverse
 from django.utils.html import format_html
 from easy_thumbnails.files import get_thumbnailer
 from solo.models import SingletonModel
 from tinymce import HTMLField
+from uuslug import uuslug
 
 
 class SEOBase(models.Model):
@@ -42,11 +44,17 @@ class Config(SingletonModel, SEOBase):
 class Page(SEOBase):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     content = HTMLField(blank=True, null=True, verbose_name='Контент')
+    slug = models.CharField(max_length=255, blank=True, null=True, verbose_name='ЧПУ ссылка', db_index=True)
+
+    def get_absolute_url(self):
+        return reverse('core:page', args=[str(self.slug)])
 
     def get_title(self):
         return self.seo_title or self.title
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = uuslug(self.title, instance=self)
         if not self.seo_title:
             self.seo_title = self.title
         if not self.seo_description:

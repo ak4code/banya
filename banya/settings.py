@@ -113,11 +113,13 @@ REST_FRAMEWORK = {
 TINYMCE_DEFAULT_CONFIG = {
     'selector': 'textarea',
     'theme': 'modern',
-    'plugins': 'link image preview codesample contextmenu table code lists textcolor colorpicker',
+    'plugins': 'link image preview codesample contextmenu table code lists textcolor colorpicker paste media',
     'toolbar1': 'formatselect | fontselect | forecolor | backcolor | bold italic underline | alignleft aligncenter alignright alignjustify '
-                '| bullist numlist | outdent indent | table | link image | codesample | preview code',
+                '| bullist numlist | outdent indent | table | link image | codesample | preview code | media',
     'contextmenu': 'formats | link image',
     'menubar': False,
+    'media_live_embeds': True,
+    'paste_as_text': True,
     'inline': False,
     'statusbar': True,
     'width': 'auto',

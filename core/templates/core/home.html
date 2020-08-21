@@ -67,23 +67,25 @@
       <h3 class="uk-text-bold">Каталог товаров</h3>
       <div class="uk-flex uk-flex-wrap uk-grid-small">
         <div class="uk-width-1-4@m">
-          {% for category in categories %}
-            <div class="uk-margin-bottom">
-              <a href="{% url 'store:category' category.slug %}"
-                 class="b-category__button"
-                 title="{{ category.name }}"
-              >
-                {{ category.name }}
-              </a>
-            </div>
-          {% endfor %}
+          <div class="uk-card uk-card-body uk-margin-bottom uk-card-small uk-card-default">
+            {% for category in categories %}
+              <div class="uk-margin-small-bottom">
+                <a href="{% url 'store:category' category.slug %}"
+                   class="b-category__button"
+                   title="{{ category.name }}"
+                >
+                  {{ category.name }}
+                </a>
+              </div>
+            {% endfor %}
+          </div>
         </div>
         <div class="uk-width-3-4@m">
-          <div class="uk-flex uk-flex-wrap uk-child-width-1-4@m uk-grid-small">
+          <div class="uk-flex uk-flex-wrap uk-child-width-1-4@m uk-child-width-1-2 uk-grid-small">
             {% for product in products %}
               <div class="uk-margin-bottom">
                 <div class="b-product__card uk-border-rounded">
-                  <a href="{{ product.url }}">
+                  <a href="{{ product.get_absolute_url }}">
                     <div class="b-product__image">
                       <img src="{{ product.get_medium_img }}" alt="{{ product.name }}">
                     </div>

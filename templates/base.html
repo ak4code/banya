@@ -54,13 +54,16 @@
         </div>
         <div class="uk-navbar-right">
           <ul class="uk-navbar-nav uk-visible@m uk-text-uppercase uk-text-bold">
-            <li style="border-right: 1px solid">
+            <li style="border-right: 1px solid"><a href="tel:{{ site_config.phone }}">{{ site_config.phone }}</a></li>
+            <li>
               <a href="{% url 'store:cart' %}">
                 <cart-button></cart-button>
               </a>
             </li>
-            <li><a href="tel:{{ site_config.phone }}">{{ site_config.phone }}</a></li>
           </ul>
+          <a class="uk-hidden@m" href="{% url 'store:cart' %}">
+            <cart-button></cart-button>
+          </a>
           <a class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon uk-toggle href="#b-offcanvas"></a>
         </div>
       </nav>

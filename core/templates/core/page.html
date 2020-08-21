@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page.seo_title }} - {{ block.super }}{% endblock %}
+{% block description %}{{ page.seo_description }}{% endblock %}
+
+{% block content %}
+  <article class="b-page">
+    <header class="b-page__title__wrap">
+      <h1 class="b-page__title">{{ page.title }}</h1>
+    </header>
+    <section class="b-page__content uk-margin-large uk-container uk-container-small">
+      <div class="uk-card uk-card-body uk-card-default uk-border-rounded">{{ page.content|safe }}</div>
+    </section>
+  </article>
+
+{% endblock %}

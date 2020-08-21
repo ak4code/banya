@@ -47,7 +47,7 @@ class PageAdmin(admin.ModelAdmin):
         }),
         ('SEO Настройки', {
             'classes': ('wide', 'extrapretty'),
-            'fields': ('seo_title', 'seo_description'),
+            'fields': ('seo_title', 'seo_description', 'slug'),
         }),
     )
 

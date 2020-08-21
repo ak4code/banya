@@ -242,7 +242,8 @@
   border: 1px solid;
   border-radius: 5px;
   text-transform: uppercase;
-  font-weight: 900;
+  font-weight: 700;
+  font-size: 12px;
   position: relative;
   display: block;
   text-align: center;
@@ -297,5 +298,25 @@
     background: white;
     border: 1px solid;
     border-radius: 5px;
+  }
+}
+
+.b-page__title__wrap {
+  background-color: #491b03;
+  background: linear-gradient(#7c482b, #491b03);
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 10px;
+
+   &::after {
+    @include b-waves('491b03');
+    bottom: -17px;
+    left: 0;
+  }
+
+  .b-page__title {
+    text-align: center;
+    color: wheat;
+    text-shadow: 2px 2px 5px #222222;
   }
 }

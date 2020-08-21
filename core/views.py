@@ -1,5 +1,6 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from store.models import Category, Product
+from core.models import Page
 
 
 class HomeView(TemplateView):
@@ -15,3 +16,8 @@ class HomeView(TemplateView):
 class RobotsView(TemplateView):
     template_name = 'core/robots.txt'
     content_type = "text/plain"
+
+
+class PageView(DetailView):
+    model = Page
+    template_name = 'core/page.html'
