@@ -1,6 +1,6 @@
 from django.contrib import admin
 from solo.admin import SingletonModelAdmin
-from .models import Config, Gallery, Photo, Page
+from .models import Config, Gallery, Photo, Page, Block
 
 
 @admin.register(Config)
@@ -17,6 +17,10 @@ class ConfigAdmin(SingletonModelAdmin):
         ('Контент', {
             'classes': ('wide', 'extrapretty'),
             'fields': ('gallery', 'page')
+        }),
+        ('Подвал', {
+            'classes': ('wide', 'extrapretty'),
+            'fields': ('footer_1', 'footer_2', 'footer_3', 'footer_4',)
         }),
         ('SEO Настройки', {
             'classes': ('wide', 'extrapretty'),
@@ -50,6 +54,11 @@ class PageAdmin(admin.ModelAdmin):
             'fields': ('seo_title', 'seo_description', 'slug'),
         }),
     )
+
+
+@admin.register(Block)
+class BlockADmin(admin.ModelAdmin):
+    pass
 
 
 admin.site.site_header = "Банщик"
