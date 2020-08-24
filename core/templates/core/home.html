@@ -26,7 +26,7 @@
                             <li>
                                 <div class="uk-cover-container">
                                     <a href="{{ photo.image.url }}" data-caption="{{ photo.caption }}">
-                                        <img src="{{ photo.image.url }}" alt="{{ photo.caption }}" uk-cover>
+                                        <img src="{{ photo.get_medium_img }}" alt="{{ photo.caption }}" uk-cover>
                                     </a>
                                 </div>
                             </li>
