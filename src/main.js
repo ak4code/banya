@@ -9,6 +9,7 @@ import ProductList from '@/components/store/ProductList'
 import CartButton from '@/components/store/CartButton'
 import BuyButton from '@/components/store/BuyButton'
 import Cart from '@/components/store/Cart'
+import HeaderSlider from '@/components/core/HeaderSlider'
 
 Vue.use(Vue2Storage, {
   prefix: 'app_',
@@ -28,7 +29,8 @@ const app = new Vue({
     BuyButton,
     ProductList,
     CartButton,
-    Cart
+    Cart,
+    HeaderSlider
   }
 })
 

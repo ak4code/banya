@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "jquery": "^3.5.1",
+    "jquery.ripples": "^0.6.3",
     "uikit": "^3.0.2",
     "vue": "^2.6.11",
     "vue2-storage": "^5.0.0",

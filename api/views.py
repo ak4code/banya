@@ -6,7 +6,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.prefetch_related('products').all()
+    queryset = Category.objects.prefetch_related('products').filter(is_active=True)
     serializer_class = CategorySerializer
 
 
