@@ -33,10 +33,14 @@ class Config(SingletonModel, SEOBase):
                                    verbose_name='Галлерея')
     page = models.OneToOneField('Page', blank=True, null=True, related_name='page', on_delete=models.CASCADE,
                                 verbose_name='Страница')
-    footer_1 = models.OneToOneField('core.Block', related_name='site_footer_1', blank=True, null=True, on_delete=models.CASCADE, verbose_name='Подвал Виджет_1')
-    footer_2 = models.OneToOneField('core.Block', related_name='site_footer_2', blank=True, null=True, on_delete=models.CASCADE, verbose_name='Подвал Виджет_2')
-    footer_3 = models.OneToOneField('core.Block', related_name='site_footer_3', blank=True, null=True, on_delete=models.CASCADE, verbose_name='Подвал Виджет_3')
-    footer_4 = models.OneToOneField('core.Block', related_name='site_footer_4', blank=True, null=True, on_delete=models.CASCADE, verbose_name='Подвал Виджет_4')
+    footer_1 = models.OneToOneField('core.Block', related_name='site_footer_1', blank=True, null=True,
+                                    on_delete=models.CASCADE, verbose_name='Подвал Виджет_1')
+    footer_2 = models.OneToOneField('core.Block', related_name='site_footer_2', blank=True, null=True,
+                                    on_delete=models.CASCADE, verbose_name='Подвал Виджет_2')
+    footer_3 = models.OneToOneField('core.Block', related_name='site_footer_3', blank=True, null=True,
+                                    on_delete=models.CASCADE, verbose_name='Подвал Виджет_3')
+    footer_4 = models.OneToOneField('core.Block', related_name='site_footer_4', blank=True, null=True,
+                                    on_delete=models.CASCADE, verbose_name='Подвал Виджет_4')
 
     def __str__(self):
         return f"Главная {self.name}"
@@ -90,6 +94,12 @@ class Photo(models.Model):
 
     def __str__(self):
         return f'Фото #{self.pk}'
+
+    def get_medium_img(self):
+        if self.image:
+            return get_thumbnailer(self.image)['medium'].url
+        else:
+            return static('store/no-image.webp')
 
     def get_small_img(self):
         if self.image:
