@@ -120,6 +120,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': False,
     'media_live_embeds': True,
     'paste_as_text': True,
+    'valid_elements': '*[*]',
     'inline': False,
     'statusbar': True,
     'width': 'auto',
