@@ -76,7 +76,7 @@ class ProductAdmin(ImportExportActionModelAdmin):
     list_filter = ('category',)
     search_fields = ('name',)
     readonly_fields = ['image_tag', ]
-    actions = ['make_available', 'make_unavailable']
+    actions = ImportExportActionModelAdmin.actions + ['make_available', 'make_unavailable']
     fieldsets = (
         (None, {
             'fields': ('name', 'category', 'description', 'price', 'in_stock', 'unit', 'quantity', 'image_tag', 'image',
