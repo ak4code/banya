@@ -53,6 +53,11 @@ class ProductResource(resources.ModelResource):
         column_name='Цена',
         attribute='price',
         widget=widgets.DecimalWidget())
+    in_stock = fields.Field(
+        column_name='В наличии',
+        attribute='in_stock',
+        default=0,
+        widget=widgets.BooleanWidget())
     category = fields.Field(
         column_name='Категория',
         attribute='category',
@@ -64,8 +69,8 @@ class ProductResource(resources.ModelResource):
 
     class Meta:
         model = Product
-        fields = ('id', 'name', 'category', 'description', 'price', 'features')
-        export_order = ('id', 'category', 'name', 'price', 'description', 'features')
+        fields = ('id', 'name', 'category', 'description', 'price', 'in_stock', 'features')
+        export_order = ('id', 'category', 'name', 'price', 'in_stock', 'description', 'features')
 
 
 @admin.register(Product)
