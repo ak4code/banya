@@ -2,14 +2,20 @@
 {% load store_tags %}
 
 {% block layout %}
-    <div class="uk-container uk-flex uk-position-relative">
-        <aside class="b-sidebar uk-visible@m">
-            {% block sidebar %}
-                {% store_menu %}
-            {% endblock %}
-        </aside>
-        <main class="b-content">
-            {% block content %}{% endblock %}
-        </main>
-    </div>
+  <div class="uk-container">
+    <ul class="uk-breadcrumb uk-margin-small-top">
+      <li><a href="{% url 'core:home' %}">Главная</a></li>
+      {% block breadcrumbs %}{% endblock %}
+    </ul>
+  </div>
+  <div class="uk-container uk-flex uk-position-relative">
+    <aside class="b-sidebar uk-visible@m">
+      {% block sidebar %}
+        {% store_menu %}
+      {% endblock %}
+    </aside>
+    <main class="b-content">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
 {% endblock %}

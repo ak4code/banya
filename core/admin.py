@@ -1,6 +1,8 @@
 from django.contrib import admin
+from genericadmin.admin import TabularInlineWithGeneric, GenericAdminModelAdmin
 from solo.admin import SingletonModelAdmin
-from .models import Config, Gallery, Photo, Page, Block
+from .models import Config, Gallery, Photo, Page, Block, MenuItem, Menu
+from mptt.admin import DraggableMPTTAdmin
 
 
 @admin.register(Config)
@@ -14,9 +16,13 @@ class ConfigAdmin(SingletonModelAdmin):
             'classes': ('wide', 'extrapretty'),
             'fields': ('title', 'content')
         }),
-        ('Контент', {
+        ('Главная страница', {
             'classes': ('wide', 'extrapretty'),
             'fields': ('gallery', 'page')
+        }),
+        ('Магазин', {
+            'classes': ('wide', 'extrapretty'),
+            'fields': ('shop_page',)
         }),
         ('Подвал', {
             'classes': ('wide', 'extrapretty'),
@@ -60,6 +66,22 @@ class PageAdmin(admin.ModelAdmin):
 class BlockADmin(admin.ModelAdmin):
     pass
 
+
+class MenuItemInlines(TabularInlineWithGeneric):
+    extra = 1
+    model = MenuItem
+
+
+@admin.register(Menu)
+class MenuAdmin(GenericAdminModelAdmin):
+    inlines = (MenuItemInlines,)
+    content_type_whitelist = ('core/page', 'store/category')
+
+
+@admin.register(MenuItem)
+class MenuItemAdmin(DraggableMPTTAdmin, GenericAdminModelAdmin):
+    list_filter = ('menu',)
+    content_type_whitelist = ('core/page', 'store/category')
 
 admin.site.site_header = "Банщик"
 admin.site.site_title = "Банщик"

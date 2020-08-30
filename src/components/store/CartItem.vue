@@ -12,7 +12,7 @@
         </div>
         <div class="uk-width-1-5@m uk-text-center">
           <input class="uk-input" min="1" max="999" type="number" :value="item.quantity" @change="updateQuantity">
-          <small>{{item.price}} / шт.</small>
+          <small>{{item.price}} ₽ / шт.</small>
         </div>
         <div class="uk-width-1-5@m uk-flex-first uk-flex-last@m">
           <div class="uk-text-large uk-text-bold">

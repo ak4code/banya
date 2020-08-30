@@ -19,7 +19,8 @@ INSTALLED_APPS = [
     'webpack_loader',
     'django_cleanup',
     'easy_thumbnails',
-    'sitetree',
+    'mptt',
+    'genericadmin',
     'tinymce',
     'adminsortable',
     'rest_framework',
@@ -74,6 +75,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 LANGUAGE_CODE = 'ru'
 

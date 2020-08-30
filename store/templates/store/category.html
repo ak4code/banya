@@ -4,11 +4,16 @@
 {% block title %}{{ category.get_title }} | {{ block.super }}{% endblock %}
 {% block description %}{{ category.seo_description }}{% endblock %}
 
+{% block breadcrumbs %}
+<li><a href="{% url 'store:index' %}">Каталог</a></li>
+<li><a href="{% url 'store:category' category.slug %}">{{ category.name }}</a></li>
+{% endblock %}
+
 {% block content %}
     <div class="uk-margin-top">
-        <h1 class="b-page__title uk-h2 uk-text-bold">{{ category.name }}</h1>
         <product-list category="{{ category.id }}"></product-list>
         <div class="uk-card uk-card-body uk-card-default uk-box-shadow-medium uk-border-rounded">
+          <h1 class="b-page__title uk-h2 uk-text-bold">{{ category.name }}</h1>
             {{ category.seo_description }}
         </div>
     </div>

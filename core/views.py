@@ -21,3 +21,9 @@ class RobotsView(TemplateView):
 class PageView(DetailView):
     model = Page
     template_name = 'core/page.html'
+
+    def get_queryset(self):
+        qs = super(PageView, self).get_queryset()
+        return qs.filter(shop__isnull=True)
+
+

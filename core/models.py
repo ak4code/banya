@@ -1,3 +1,6 @@
+from adminsortable.models import SortableMixin
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.templatetags.static import static
 from django.db import models
 from django.urls import reverse
@@ -6,6 +9,7 @@ from easy_thumbnails.files import get_thumbnailer
 from solo.models import SingletonModel
 from tinymce import HTMLField
 from uuslug import uuslug
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 class SEOBase(models.Model):
@@ -33,6 +37,8 @@ class Config(SingletonModel, SEOBase):
                                    verbose_name='Галлерея')
     page = models.OneToOneField('Page', blank=True, null=True, related_name='page', on_delete=models.CASCADE,
                                 verbose_name='Страница')
+    shop_page = models.OneToOneField('Page', blank=True, null=True, related_name='shop', on_delete=models.CASCADE,
+                                verbose_name='Страница магазина')
     footer_1 = models.OneToOneField('core.Block', related_name='site_footer_1', blank=True, null=True,
                                     on_delete=models.CASCADE, verbose_name='Подвал Виджет_1')
     footer_2 = models.OneToOneField('core.Block', related_name='site_footer_2', blank=True, null=True,
@@ -43,10 +49,10 @@ class Config(SingletonModel, SEOBase):
                                     on_delete=models.CASCADE, verbose_name='Подвал Виджет_4')
 
     def __str__(self):
-        return f"Главная {self.name}"
+        return f"Настройки {self.name}"
 
     class Meta:
-        verbose_name = "Главная"
+        verbose_name = "Настройки"
 
 
 class Page(SEOBase):
@@ -127,3 +133,53 @@ class Block(models.Model):
     class Meta:
         verbose_name = 'Блок контент'
         verbose_name_plural = 'Блоки контента'
+
+
+class Menu(models.Model):
+    POSITON_CHOICES = (
+        (None, 'Выберите позицию'),
+        ('main', 'Главное меню'),
+        ('mobile', 'Мобильное меню'),
+        ('footer', 'Меню в подвале'),
+    )
+    name = models.CharField(max_length=200, verbose_name='Название меню')
+    position = models.CharField(max_length=100, choices=POSITON_CHOICES, unique=True, db_index=True,
+                                verbose_name='Позиция')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Меню'
+        verbose_name_plural = 'Меню'
+
+
+class MenuItem(MPTTModel):
+    menu = models.ForeignKey(Menu, related_name='items', on_delete=models.CASCADE, verbose_name='Меню')
+    name = models.CharField(max_length=200, verbose_name='Название')
+    parent = TreeForeignKey('self', related_name='children', blank=True, null=True, on_delete=models.CASCADE,
+                            verbose_name='Родитель')
+    link = models.CharField(max_length=255, blank=True, null=True, verbose_name='Произвольная ссылка')
+    content_type = models.ForeignKey(ContentType, blank=True, null=True, on_delete=models.CASCADE,
+                                     verbose_name='Тип контента')
+    object_id = models.PositiveIntegerField(blank=True, null=True, verbose_name='ID обьекта')
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return f'{self.menu.name} -> {self.name}'
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
+
+    def get_link(self):
+        if self.content_object:
+            return self.content_object.get_absolute_url()
+        elif self.link:
+            return self.link
+        else:
+            return '#'
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Пункт меню'
+        verbose_name_plural = 'Пункты меню'

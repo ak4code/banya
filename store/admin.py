@@ -7,7 +7,7 @@ from .models import Category, Product
 from import_export import resources, fields, widgets
 from import_export.admin import ImportExportActionModelAdmin
 from adminsortable.admin import SortableAdmin
-
+from store.importexport.widgets import CategoryWidget
 
 @admin.register(Category)
 class CategoryAdmin(SortableAdmin):
@@ -29,15 +29,6 @@ class CategoryAdmin(SortableAdmin):
         return format_html('<img src="{}" width="50" height="50" />'.format(obj.get_small_img()))
 
     image_tag.short_description = 'Миниатюра'
-
-
-class CategoryWidget(widgets.ForeignKeyWidget):
-    def clean(self, value, row=None, *args, **kwargs):
-        if value:
-            obj, created = self.get_queryset(value, row, *args, **kwargs).get_or_create(**{self.field: value})
-            return obj
-        else:
-            return None
 
 
 class ProductResource(resources.ModelResource):

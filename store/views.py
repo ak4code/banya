@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.views.generic import ListView, DetailView, TemplateView
 from rest_framework.renderers import JSONRenderer
 
+from core.models import Page
 from .models import Category, Product
 from api.serializers import ProductSerializer
 
@@ -13,7 +14,7 @@ class StoreIndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Каталог'
+        context['page'] = Page.objects.get(shop__isnull=False)
         return context
 
     def get_queryset(self):
