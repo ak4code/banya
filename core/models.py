@@ -39,14 +39,10 @@ class Config(SingletonModel, SEOBase):
                                 verbose_name='Страница')
     shop_page = models.OneToOneField('Page', blank=True, null=True, related_name='shop', on_delete=models.CASCADE,
                                 verbose_name='Страница магазина')
-    footer_1 = models.OneToOneField('core.Block', related_name='site_footer_1', blank=True, null=True,
-                                    on_delete=models.CASCADE, verbose_name='Подвал Виджет_1')
-    footer_2 = models.OneToOneField('core.Block', related_name='site_footer_2', blank=True, null=True,
-                                    on_delete=models.CASCADE, verbose_name='Подвал Виджет_2')
-    footer_3 = models.OneToOneField('core.Block', related_name='site_footer_3', blank=True, null=True,
-                                    on_delete=models.CASCADE, verbose_name='Подвал Виджет_3')
-    footer_4 = models.OneToOneField('core.Block', related_name='site_footer_4', blank=True, null=True,
-                                    on_delete=models.CASCADE, verbose_name='Подвал Виджет_4')
+    footer_1 = HTMLField(blank=True, null=True, verbose_name='Подвал Виджет_1')
+    footer_2 = HTMLField(blank=True, null=True, verbose_name='Подвал Виджет_2')
+    footer_3 = HTMLField(blank=True, null=True, verbose_name='Подвал Виджет_3')
+    footer_4 = HTMLField(blank=True, null=True, verbose_name='Подвал Виджет_4')
 
     def __str__(self):
         return f"Настройки {self.name}"

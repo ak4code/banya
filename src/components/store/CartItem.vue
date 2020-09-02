@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="uk-width-auto uk-padding-small">
-      <a @click="removeItem(idx)" uk-icon="trash"></a>
+      <a @click="removeItem(idx)" uk-icon="trash" style="color: red;"></a>
     </div>
   </div>
 </template>
