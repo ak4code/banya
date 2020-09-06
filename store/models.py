@@ -1,4 +1,7 @@
+from django.conf import settings
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.templatetags.static import static
 from django.urls import reverse
 from easy_thumbnails.files import get_thumbnailer
@@ -103,3 +106,49 @@ class Product(SEOBase):
         ordering = ['create_at']
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+
+
+class Order(models.Model):
+    SHIPPING_TYPE_CHOICES = (
+        ('pickup', 'САМОВЫВОЗ'),
+        ('shipping', 'ДОСТАВКА'),
+    )
+    customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='orders',
+                                 verbose_name='Клиент')
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    shipping_type = models.CharField(max_length=8, default='pickup', choices=SHIPPING_TYPE_CHOICES,
+                                     verbose_name='Тип доставки')
+    shipping_city = models.CharField(max_length=255, blank=True, null=True, verbose_name='Город доставки')
+    shipping_address = models.CharField(max_length=255, blank=True, null=True, verbose_name='Адрес доставки')
+
+    def __str__(self):
+        return f'Заказ №{self.pk} от {self.create_at.strftime("%d.%m.%Y %H:%M")}, клиент {self.customer.first_name}'
+
+    def amount(self):
+        return sum([i.amount() for i in self.items.all()])
+
+    amount.short_description = 'Сумма заказа'
+
+    class Meta:
+        ordering = ['create_at']
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='items', verbose_name='Заказ')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='order_items', verbose_name='Товар')
+    price = models.DecimalField(decimal_places=2, max_digits=20, default=1, verbose_name='Цена за единицу')
+    quantity = models.PositiveSmallIntegerField(default=1, verbose_name='Количество')
+
+    def amount(self):
+        return self.price * self.quantity
+
+    amount.short_description = 'Сумма'
+
+    def __str__(self):
+        return f'{self.product.name} - {self.price} за {self.product.unit}'
+
+    class Meta:
+        verbose_name = 'Позиция заказа'
+        verbose_name_plural = 'Позиции заказа'

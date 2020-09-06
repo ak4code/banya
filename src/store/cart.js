@@ -7,6 +7,7 @@ const cart = {
     ADD_ITEM (state, item) {
       state.items.push({
         id: item.id,
+        product: item.id,
         name: item.name,
         price: +item.price,
         quantity: 1,

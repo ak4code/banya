@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from store.models import Category, Product
+from store.models import Category, Product, Order, OrderItem
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -24,3 +24,26 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+
+
+class OrderItemsSerializer(serializers.ModelSerializer):
+    order = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemsSerializer(many=True, required=False)
+
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+    def create(self, validated_data):
+        items = validated_data.pop('items')
+        order = Order.objects.create(**validated_data)
+        for item in items:
+            OrderItem.objects.create(order=order, **item)
+        return order

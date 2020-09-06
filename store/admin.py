@@ -3,11 +3,12 @@ from django.contrib import messages
 from django.utils.translation import ngettext
 from django.utils.html import format_html
 
-from .models import Category, Product
+from .models import Category, Product, Order, OrderItem
 from import_export import resources, fields, widgets
 from import_export.admin import ImportExportActionModelAdmin
 from adminsortable.admin import SortableAdmin
 from store.importexport.widgets import CategoryWidget
+
 
 @admin.register(Category)
 class CategoryAdmin(SortableAdmin):
@@ -108,3 +109,15 @@ class ProductAdmin(ImportExportActionModelAdmin):
         ) % updated, messages.SUCCESS)
 
     make_unavailable.short_description = "Сделать выделенные товары 'Под заказ'"
+
+
+class OrderItemsInline(admin.TabularInline):
+    model = OrderItem
+    extra = 1
+    readonly_fields = ('amount',)
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    inlines = (OrderItemsInline,)
+    readonly_fields = ('amount',)
