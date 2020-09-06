@@ -47,6 +47,10 @@ const cart = {
       commit('REMOVE_ITEM', payload)
       dispatch('saveCart')
     },
+    clearCart ({ commit, dispatch }) {
+      commit('SET_CART', [])
+      dispatch('saveCart')
+    },
     saveCart ({ state }) {
       this._vm.$storage.set('cart', state.items)
     }

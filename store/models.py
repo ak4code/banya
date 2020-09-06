@@ -1,7 +1,5 @@
 from django.conf import settings
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.templatetags.static import static
 from django.urls import reverse
 from easy_thumbnails.files import get_thumbnailer
@@ -130,7 +128,7 @@ class Order(models.Model):
     amount.short_description = 'Сумма заказа'
 
     class Meta:
-        ordering = ['create_at']
+        ordering = ['-create_at']
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
 

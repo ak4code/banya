@@ -82,13 +82,13 @@ LOCALE_PATHS = (
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = "Europe/Moscow"
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 DATETIME_FORMAT = "d.m.Y H:M"
 DATE_FORMAT = "d.m.Y"
@@ -131,3 +131,15 @@ TINYMCE_DEFAULT_CONFIG = {
     'width': 'auto',
     'height': 360,
 }
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
+EMAIL_PORT = 587
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = '6379'
+BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'

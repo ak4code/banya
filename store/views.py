@@ -58,6 +58,3 @@ class StoreProductDetailView(DetailView):
 
 class StoreCartView(TemplateView):
     template_name = 'store/cart.html'
-
-class StoreCheckoutView(TemplateView):
-    template_name = 'store/checkout.html'

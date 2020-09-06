@@ -1,11 +1,14 @@
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from store.signals import user_post_save
 from .permissions import IsOwner
-from store.models import Category, Product, Order, OrderItem
-from .serializers import CategorySerializer, ProductSerializer, OrderSerializer
+from store.models import Category, Product, Order
+from .serializers import CategorySerializer, ProductSerializer, OrderSerializer, CustomerSerializer
 from .paginations import StandardResultsSetPagination
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -27,32 +30,29 @@ class CreateCustomerAndLogin(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            data = {'user_id': request.user.id}
-            return Response({"message": "Вход выполнен!", **data, "success": True})
-
-        email = request.data.get("email")
-
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            user = None
-
-        if user is not None:
-            login(request, user)
-            data = {'user_id': user.id}
-            return Response(
-                {"message": "Такой пользователь есть и выполнен вход!", **data, "success": True})
-
-        username = request.data.get("phone")
-        password = User.objects.make_random_password()
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.first_name = request.data.get('name')
-        user.save()
-
+        user = user_check_or_create(request)
         login(request, user)
-        data = {'user_id': user.id}
-        return Response({"message": "Пользователь создан и выполнен вход!", **data})
+        serializer = CustomerSerializer(request.user)
+        return Response(serializer.data)
+
+
+def user_check_or_create(request):
+    if request.user.is_authenticated:
+        return request.user
+
+    email = request.data.get("email")
+    try:
+        user = User.objects.get(email=email)
+        return user
+    except User.DoesNotExist:
+        username = request.data.get("username")
+        first_name = request.data.get('first_name')
+        password = User.objects.make_random_password()
+        user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name)
+        return user
+
+
+post_save.connect(user_post_save, sender=User)
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -61,7 +61,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         """
-        Instantiates and returns the list of permissions that this view requires.
+        Определяет вьюху и применяет к ней права доступа.
         """
         if self.action == 'list':
             permission_classes = [permissions.IsAdminUser]
