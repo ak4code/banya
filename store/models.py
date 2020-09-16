@@ -111,13 +111,21 @@ class Order(models.Model):
         ('pickup', 'САМОВЫВОЗ'),
         ('shipping', 'ДОСТАВКА'),
     )
+    STATUS_CHOICES = (
+        ('progress', 'В работе'),
+        ('pay', 'Ожидает оплаты'),
+        ('ready', 'Готов к выдаче'),
+        ('success', 'Выполнен'),
+        ('cancel', 'Отменен')
+    )
     customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='orders',
                                  verbose_name='Клиент')
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    shipping_type = models.CharField(max_length=8, default='pickup', choices=SHIPPING_TYPE_CHOICES,
+    shipping_type = models.CharField(max_length=8, default=SHIPPING_TYPE_CHOICES[0][0], choices=SHIPPING_TYPE_CHOICES,
                                      verbose_name='Тип доставки')
     shipping_city = models.CharField(max_length=255, blank=True, null=True, verbose_name='Город доставки')
     shipping_address = models.CharField(max_length=255, blank=True, null=True, verbose_name='Адрес доставки')
+    status = models.CharField(max_length=10, default=STATUS_CHOICES[0][0], verbose_name='Статус')
 
     def __str__(self):
         return f'Заказ №{self.pk} от {self.create_at.strftime("%d.%m.%Y %H:%M")}, клиент {self.customer.first_name}'
