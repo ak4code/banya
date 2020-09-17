@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import strip_tags
 
-from banya.celery import app
+from banya.celeryapp import app
 
 
 @app.task
