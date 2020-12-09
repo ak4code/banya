@@ -17,14 +17,14 @@
     {% get_files 'app' 'js' as app_js_files %}
     {% get_files 'app' 'css' as app_css_files %}
     {% for js_file in app_js_files %}
-        <link href="{{ js_file.url }}" rel="preload" as="script">
+    <link href="{{ js_file.url }}" rel="preload" as="script">
     {% endfor %}
     {% get_files 'chunk-vendors' 'js' as chunk_js_files %}
     {% for js_file in chunk_js_files %}
-        <link href="{{ js_file.url }}" rel="preload" as="script">
+    <link href="{{ js_file.url }}" rel="preload" as="script">
     {% endfor %}
     {% for css_file in app_css_files %}
-        <link href="{{ css_file.url }}" rel="preload" as="style">
+    <link href="{{ css_file.url }}" rel="preload" as="style">
     {% endfor %}
     {% render_bundle 'app' 'css' %}
 </head>
@@ -51,18 +51,18 @@
                         </li>
                         {% get_menu 'main' as main_menu %}
                         {% if main_menu %}
-                            {% recursetree main_menu.items.all %}
-                                <li class="{% if request.get_full_path == node.get_link %}uk-active{% endif %}">
-                                    <a href="{{ node.get_link }}" title="{{ node.name }}">{{ node.name }}</a>
-                                    {% if not node.is_leaf_node %}
-                                        <div class="uk-navbar-dropdown">
-                                            <ul class="uk-nav uk-navbar-dropdown-nav">
-                                                {{ children }}
-                                            </ul>
-                                        </div>
-                                    {% endif %}
-                                </li>
-                            {% endrecursetree %}
+                        {% recursetree main_menu.items.all %}
+                        <li class="{% if request.get_full_path == node.get_link %}uk-active{% endif %}">
+                            <a href="{{ node.get_link }}" title="{{ node.name }}">{{ node.name }}</a>
+                            {% if not node.is_leaf_node %}
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    {{ children }}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% endrecursetree %}
                         {% endif %}
                     </ul>
                 </div>
@@ -93,18 +93,18 @@
             <ul class="uk-nav uk-nav-primary">
                 {% get_menu 'mobile' as mobile_menu %}
                 {% if mobile_menu %}
-                    {% recursetree mobile_menu.items.all %}
-                        <li class="{% if request.get_full_path == node.get_link %}uk-active{% endif %}">
-                            <a href="{{ node.get_link }}" title="{{ node.name }}">{{ node.name }}</a>
-                            {% if not node.is_leaf_node %}
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        {{ children }}
-                                    </ul>
-                                </div>
-                            {% endif %}
-                        </li>
-                    {% endrecursetree %}
+                {% recursetree mobile_menu.items.all %}
+                <li class="{% if request.get_full_path == node.get_link %}uk-active{% endif %}">
+                    <a href="{{ node.get_link }}" title="{{ node.name }}">{{ node.name }}</a>
+                    {% if not node.is_leaf_node %}
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            {{ children }}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </li>
+                {% endrecursetree %}
                 {% endif %}
                 <hr>
                 <li class="uk-text-center">
@@ -119,7 +119,7 @@
     </div>
     <section class="b-layout">
         {% block layout %}
-            {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
         {% endblock %}
     </section>
     <footer id="b-footer" class="b-footer uk-padding uk-padding-remove-horizontal uk-margin-large-top uk-light">
@@ -127,30 +127,30 @@
             <div class="uk-flex uk-flex-wrap uk-child-width-1-4@m uk-child-width-1-1">
                 <div>
                     {% if site_config.footer_1 %}
-                        <div class="uk-card uk-card-small uk-card-body">
-                            {{ site_config.footer_1|safe }}
-                        </div>
+                    <div class="uk-card uk-card-small uk-card-body">
+                        {{ site_config.footer_1|safe }}
+                    </div>
                     {% endif %}
                 </div>
                 <div>
                     {% if site_config.footer_2 %}
-                        <div class="uk-card uk-card-small uk-card-body">
-                            {{ site_config.footer_2|safe }}
-                        </div>
+                    <div class="uk-card uk-card-small uk-card-body">
+                        {{ site_config.footer_2|safe }}
+                    </div>
                     {% endif %}
                 </div>
                 <div>
                     {% if site_config.footer_3 %}
-                        <div class="uk-card uk-card-small uk-card-body">
-                            {{ site_config.footer_3|safe }}
-                        </div>
+                    <div class="uk-card uk-card-small uk-card-body">
+                        {{ site_config.footer_3|safe }}
+                    </div>
                     {% endif %}
                 </div>
                 <div>
                     {% if site_config.footer_4 %}
-                        <div class="uk-card uk-card-small uk-card-body">
-                            {{ site_config.footer_4|safe }}
-                        </div>
+                    <div class="uk-card uk-card-small uk-card-body">
+                        {{ site_config.footer_4|safe }}
+                    </div>
                     {% endif %}
                 </div>
             </div>
@@ -166,5 +166,25 @@
 </div>
 {% render_bundle 'chunk-vendors' 'js' %}
 {% render_bundle 'app' 'js' %}
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+        m[i] = m[i] || function () {
+            (m[i].a = m[i].a || []).push(arguments)
+        };
+        m[i].l = 1 * new Date();
+        k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(66959602, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true
+    });
+</script>
+<noscript>
+    <div><img src="https://mc.yandex.ru/watch/66959602" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript><!-- /Yandex.Metrika counter -->
 </body>
 </html>
