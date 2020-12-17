@@ -27,3 +27,4 @@ media
 venv
 package-lock.json
 webpack-stats.json
+webpack-prod-stats.json
