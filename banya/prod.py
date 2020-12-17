@@ -1,8 +1,9 @@
 from .settings import *
+from decouple import Csv
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['37.46.129.209', 'banschik.temruk.biz', '.temruk.biz']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 DATABASES = {
     'default': {

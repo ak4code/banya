@@ -57,8 +57,8 @@
           <li><a href="">Характеристики</a></li>
         </ul>
         <ul class="uk-switcher uk-margin">
-          <li>{{ product.description | linebreaksbr }}</li>
-          <li>{{ product.features | linebreaksbr }}</li>
+          <li>{{ product.description|default_if_none:"пусто"|linebreaksbr }}</li>
+          <li>{{ product.features|default_if_none:"пусто"|linebreaksbr }}</li>
         </ul>
       </div>
     </div>
